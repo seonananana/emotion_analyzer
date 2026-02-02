@@ -1,0 +1,88 @@
+negative_word_analysis:
+  student_name: 정0철
+  analysis_date: '2026-01-19'
+  text_length: 1069
+  total_negative_words_found: 2
+  total_negative_word_frequency: 2
+  word_frequency:
+    막히다: 1
+    못하다: 1
+  detailed_word_analysis:
+    막히다:
+      frequency: 1
+      forms:
+      - form: 막히는
+        start: 378
+        end: 381
+        context: ' 작은 의문점이나 막히는 부분에 대해서 고'
+      emotions:
+        우울: 1
+        분노: 3
+        불안: 5
+        슬픔: 0
+        외로움: 0
+        좌절: 1
+    못하다:
+      frequency: 1
+      forms:
+      - form: 못하는
+        start: 461
+        end: 464
+        context: 분을 다 수행하지 못하는 경우가 있다. 이
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 3
+  emotion_distribution:
+    우울: 3
+    분노: 3
+    불안: 8
+    슬픔: 1
+    외로움: 1
+    좌절: 4
+  total_weighted_emotion_score: 20
+  emotion_percentages: &id001
+    우울: 15.0
+    분노: 15.0
+    불안: 40.0
+    슬픔: 5.0
+    외로움: 5.0
+    좌절: 20.0
+text_analysis_comment: '
+
+  ## 정0철 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 1,069자
+
+  - **부정 어휘 수**: 2개 (중복 포함 2회)
+
+  - **부정 어휘 밀도**: 1000자당 1.9개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 불안 (40.0%)
+
+  - **불안**: 40.0% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **좌절**: 20.0% - 목표 달성의 어려움과 실망감이 드러남
+
+  - **우울**: 15.0% - 지속적인 우울감과 무력감이 나타남
+
+  - **분노**: 15.0% - 강한 분노와 적대감이 표현됨
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 2
+  total_negative_word_frequency: 2
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 막히다(1회)
+  - 못하다(1회)
+  negative_word_density: 1.9

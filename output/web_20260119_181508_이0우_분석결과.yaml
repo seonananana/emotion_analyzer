@@ -1,0 +1,34 @@
+negative_word_analysis:
+  student_name: 이0우
+  analysis_date: '2026-01-19'
+  text_length: 3
+  total_negative_words_found: 0
+  total_negative_word_frequency: 0
+  word_frequency: {}
+  detailed_word_analysis: {}
+  emotion_distribution: {}
+  total_weighted_emotion_score: 0
+  emotion_percentages: &id001 {}
+text_analysis_comment: '
+
+  ## 이0우 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 3자
+
+  - **부정 어휘 수**: 0개 (중복 포함 0회)
+
+  - **부정 어휘 밀도**: 1000자당 0.0개
+
+
+  ### 감정 분포 특성
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 0
+  total_negative_word_frequency: 0
+  emotion_percentages: *id001
+  high_frequency_words: []
+  negative_word_density: 0.0

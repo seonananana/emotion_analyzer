@@ -1,0 +1,144 @@
+negative_word_analysis:
+  student_name: 조0형
+  analysis_date: '2026-01-19'
+  text_length: 762
+  total_negative_words_found: 5
+  total_negative_word_frequency: 7
+  word_frequency:
+    울다: 2
+    이상하다: 2
+    귀찮다: 1
+    못하다: 1
+    후회하다: 1
+  detailed_word_analysis:
+    울다:
+      frequency: 2
+      forms:
+      - form: 울고
+        start: 594
+        end: 596
+        context: 고, 울기도 많이 울고, 웃으면서 다사다
+      - form: 울기
+        start: 587
+        end: 589
+        context: ' 일이 아니었고, 울기도 많이 울고, 웃'
+      emotions:
+        우울: 3
+        분노: 0
+        불안: 0
+        슬픔: 6
+        외로움: 0
+        좌절: 1
+    이상하다:
+      frequency: 2
+      forms:
+      - form: 이상하게
+        start: 421
+        end: 425
+        context: 노를 치게 된다. 이상하게 6개월정도 손에서
+      - form: 이상하게
+        start: 456
+        end: 460
+        context: '시 치게 되었는데 이상하게 오랜만에 치니까 '
+      emotions:
+        우울: 1
+        분노: 3
+        불안: 4
+        슬픔: 0
+        외로움: 0
+        좌절: 2
+    귀찮다:
+      frequency: 1
+      forms:
+      - form: 귀찮아
+        start: 273
+        end: 276
+        context: ' 즈음 모든 것이 귀찮아진 나는 초등학교 '
+      emotions:
+        우울: 4
+        분노: 2
+        불안: 1
+        슬픔: 1
+        외로움: 1
+        좌절: 1
+    못하다:
+      frequency: 1
+      forms:
+      - form: 못하겠
+        start: 651
+        end: 654
+        context: 적이 없다고는 말 못하겠다. 그러나 음악을
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 3
+    후회하다:
+      frequency: 1
+      forms:
+      - form: 후회한
+        start: 637
+        end: 640
+        context: 말하면 그 이후로 후회한 적이 없다고는 말
+      emotions:
+        우울: 3
+        분노: 1
+        불안: 1
+        슬픔: 3
+        외로움: 1
+        좌절: 1
+  emotion_distribution:
+    우울: 17
+    분노: 9
+    불안: 13
+    슬픔: 17
+    외로움: 3
+    좌절: 11
+  total_weighted_emotion_score: 70
+  emotion_percentages: &id001
+    우울: 24.3
+    분노: 12.9
+    불안: 18.6
+    슬픔: 24.3
+    외로움: 4.3
+    좌절: 15.7
+text_analysis_comment: '
+
+  ## 조0형 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 762자
+
+  - **부정 어휘 수**: 5개 (중복 포함 7회)
+
+  - **부정 어휘 밀도**: 1000자당 9.2개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 우울 (24.3%)
+
+  - **우울**: 24.3% - 지속적인 우울감과 무력감이 나타남
+
+  - **슬픔**: 24.3% - 깊은 상실감과 애도의 감정이 드러남
+
+  - **불안**: 18.6% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **좌절**: 15.7% - 목표 달성의 어려움과 실망감이 드러남
+
+  - **분노**: 12.9% - 강한 분노와 적대감이 표현됨
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 5
+  total_negative_word_frequency: 7
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 울다(2회)
+  - 이상하다(2회)
+  - 귀찮다(1회)
+  negative_word_density: 9.2

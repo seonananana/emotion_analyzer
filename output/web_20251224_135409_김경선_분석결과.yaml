@@ -1,0 +1,244 @@
+negative_word_analysis:
+  student_name: 김경선
+  analysis_date: '2025-12-24'
+  text_length: 1096
+  total_negative_words_found: 11
+  total_negative_word_frequency: 16
+  word_frequency:
+    못하다: 4
+    아프다: 3
+    괴롭다: 1
+    두렵다: 1
+    상하다: 1
+    실패하다: 1
+    어렵다: 1
+    이상하다: 1
+    잊다: 1
+    참다: 1
+    힘들다: 1
+  detailed_word_analysis:
+    못하다:
+      frequency: 4
+      forms:
+      - form: 못했습니다
+        start: 368
+        end: 373
+        context: '버지에게 다가서지 못했습니다. 아버지는 주로 '
+      - form: 못하는
+        start: 502
+        end: 505
+        context: 우는 중에 대답을 못하는 것을 보시고 아버
+      - form: 못하는
+        start: 653
+        end: 656
+        context: '기본적인 나눗셈도 못하는 사람이었고 돈을 '
+      - form: 못할
+        start: 468
+        end: 470
+        context: 니다. 가장 잊지 못할 일은 초등학교 입
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 3
+    아프다:
+      frequency: 3
+      forms:
+      - form: 아프고
+        start: 743
+        end: 746
+        context: '  왜 유독 저만 아프고 오래 가슴에 남았'
+      - form: 아픈
+        start: 588
+        end: 590
+        context: ' 그날 그 이후로 아픈 것보다 더 두려운'
+      - form: 아픈
+        start: 1067
+        end: 1069
+        context: 사합니다!! 지난 아픈 과거가 있기에 오
+      emotions:
+        우울: 4
+        분노: 1
+        불안: 1
+        슬픔: 1
+        외로움: 3
+        좌절: 0
+    괴롭다:
+      frequency: 1
+      forms:
+      - form: 괴롭게
+        start: 985
+        end: 988
+        context: ' 것이 저를 더욱 괴롭게 했습니다. 많은 '
+      emotions:
+        우울: 5
+        분노: 0
+        불안: 2
+        슬픔: 3
+        외로움: 0
+        좌절: 0
+    두렵다:
+      frequency: 1
+      forms:
+      - form: 두려운
+        start: 597
+        end: 600
+        context: ' 아픈 것보다 더 두려운 것은 숫자만 보아'
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 9
+        슬픔: 0
+        외로움: 0
+        좌절: 0
+    상하다:
+      frequency: 1
+      forms:
+      - form: 상한
+        start: 791
+        end: 793
+        context: 합니다.  내가 자상한 아버지를 만났으면
+      emotions:
+        우울: 3
+        분노: 3
+        불안: 1
+        슬픔: 0
+        외로움: 2
+        좌절: 1
+    실패하다:
+      frequency: 1
+      forms:
+      - form: 실패하지
+        start: 557
+        end: 561
+        context: 저는 학창 시절을 실패하지 않았을 거라는 생
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 1
+        슬픔: 1
+        외로움: 0
+        좌절: 6
+    어렵다:
+      frequency: 1
+      forms:
+      - form: 어려워
+        start: 680
+        end: 683
+        context: 만 돈 세는 것도 어려워합니다. 똑같은 자
+      emotions:
+        우울: 5
+        분노: 0
+        불안: 3
+        슬픔: 0
+        외로움: 0
+        좌절: 2
+    이상하다:
+      frequency: 1
+      forms:
+      - form: 이상하게
+        start: 931
+        end: 935
+        context: ' 여자입니다. 참 이상하게도 여동생은 공부를'
+      emotions:
+        우울: 1
+        분노: 3
+        불안: 4
+        슬픔: 0
+        외로움: 0
+        좌절: 2
+    잊다:
+      frequency: 1
+      forms:
+      - form: 잊지
+        start: 465
+        end: 467
+        context: 하셨습니다. 가장 잊지 못할 일은 초등학
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 1
+        슬픔: 3
+        외로움: 4
+        좌절: 1
+    참다:
+      frequency: 1
+      forms:
+      - form: 참지
+        start: 386
+        end: 388
+        context: 버지는 주로 화를 참지 못하셨고 한번 기
+      emotions:
+        우울: 1
+        분노: 5
+        불안: 2
+        슬픔: 0
+        외로움: 2
+        좌절: 0
+    힘들다:
+      frequency: 1
+      forms:
+      - form: 힘들어
+        start: 140
+        end: 143
+        context: 제가 보아도 무척 힘들어 보였습니다. 부모
+      emotions:
+        우울: 3
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 2
+  emotion_distribution:
+    우울: 42
+    분노: 14
+    불안: 41
+    슬픔: 15
+    외로움: 22
+    좌절: 26
+  total_weighted_emotion_score: 160
+  emotion_percentages: &id001
+    우울: 26.2
+    분노: 8.8
+    불안: 25.6
+    슬픔: 9.4
+    외로움: 13.8
+    좌절: 16.2
+text_analysis_comment: '
+
+  ## 김경선 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 1,096자
+
+  - **부정 어휘 수**: 11개 (중복 포함 16회)
+
+  - **부정 어휘 밀도**: 1000자당 14.6개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 우울 (26.2%)
+
+  - **우울**: 26.2% - 지속적인 우울감과 무력감이 나타남
+
+  - **불안**: 25.6% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **좌절**: 16.2% - 목표 달성의 어려움과 실망감이 드러남
+
+  - **외로움**: 13.8% - 고립감과 소외감이 느껴짐
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 11
+  total_negative_word_frequency: 16
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 못하다(4회)
+  - 아프다(3회)
+  - 괴롭다(1회)
+  negative_word_density: 14.6

@@ -1,0 +1,40 @@
+빡:
+  key: 빡
+  text: 빡
+  label: NEG
+  count: 6
+  avg_confidence: 0.39185363821029046
+  examples:
+  - 빡
+  first_seen_at: '2026-01-28T21:12:31'
+  last_seen_at: '2026-01-28T21:22:23'
+겠다:
+  key: 겠다
+  text: 겠다
+  label: NEG
+  count: 1
+  avg_confidence: 0.3810012986072786
+  examples:
+  - 겠다
+  first_seen_at: '2026-01-28T21:19:37'
+  last_seen_at: '2026-01-28T21:19:37'
+멘붕:
+  key: 멘붕
+  text: 멘붕
+  label: NEG
+  count: 2
+  avg_confidence: 0.35319725415507514
+  examples:
+  - 멘붕
+  first_seen_at: '2026-01-28T21:19:51'
+  last_seen_at: '2026-01-28T21:22:16'
+타:
+  key: 타
+  text: 타
+  label: NEG
+  count: 1
+  avg_confidence: 0.3784800208432722
+  examples:
+  - 타
+  first_seen_at: '2026-01-28T21:19:58'
+  last_seen_at: '2026-01-28T21:19:58'

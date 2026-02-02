@@ -1,0 +1,168 @@
+negative_word_analysis:
+  student_name: 임0현
+  analysis_date: '2026-01-19'
+  text_length: 1304
+  total_negative_words_found: 7
+  total_negative_word_frequency: 7
+  word_frequency:
+    공허하다: 1
+    못하다: 1
+    사소하다: 1
+    아프다: 1
+    알지 못하다: 1
+    울다: 1
+    잃다: 1
+  detailed_word_analysis:
+    공허하다:
+      frequency: 1
+      forms:
+      - form: 공허했
+        start: 402
+        end: 405
+        context: 있어도 마음은 늘 공허했고 삶에 흥미가 사
+      emotions:
+        우울: 6
+        분노: 0
+        불안: 1
+        슬픔: 1
+        외로움: 2
+        좌절: 0
+    못하다:
+      frequency: 1
+      forms:
+      - form: 못했
+        start: 582
+        end: 584
+        context: 그 말을 따라가지 못했다. 학원에서 정말
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 3
+    사소하다:
+      frequency: 1
+      forms:
+      - form: 사소한
+        start: 222
+        end: 225
+        context: 우하기 시작했다. 사소한 말 한마디, 짧은
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 2
+        슬픔: 2
+        외로움: 1
+        좌절: 3
+    아프다:
+      frequency: 1
+      forms:
+      - form: 아프게
+        start: 1197
+        end: 1200
+        context: '는 우리를 흔들고 아프게 만든다. 그러나 '
+      emotions:
+        우울: 4
+        분노: 1
+        불안: 1
+        슬픔: 1
+        외로움: 3
+        좌절: 0
+    알지 못하다:
+      frequency: 1
+      forms:
+      - form: 알지 못했
+        start: 1117
+        end: 1122
+        context: '을 조절하는 법을 알지 못했을 것이다.
+
+          결국 '
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 5
+        슬픔: 1
+        외로움: 1
+        좌절: 2
+    울다:
+      frequency: 1
+      forms:
+      - form: 울었
+        start: 598
+        end: 600
+        context: 원에서 정말 많이 울었는데 그럴때마다 공
+      emotions:
+        우울: 3
+        분노: 0
+        불안: 0
+        슬픔: 6
+        외로움: 0
+        좌절: 1
+    잃다:
+      frequency: 1
+      forms:
+      - form: 잃은
+        start: 444
+        end: 446
+        context: 존하던 내 자신을 잃은 상태였던 것 같다
+      emotions:
+        우울: 4
+        분노: 0
+        불안: 2
+        슬픔: 3
+        외로움: 0
+        좌절: 1
+  emotion_distribution:
+    우울: 22
+    분노: 1
+    불안: 14
+    슬픔: 15
+    외로움: 8
+    좌절: 10
+  total_weighted_emotion_score: 70
+  emotion_percentages: &id001
+    우울: 31.4
+    분노: 1.4
+    불안: 20.0
+    슬픔: 21.4
+    외로움: 11.4
+    좌절: 14.3
+text_analysis_comment: '
+
+  ## 임0현 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 1,304자
+
+  - **부정 어휘 수**: 7개 (중복 포함 7회)
+
+  - **부정 어휘 밀도**: 1000자당 5.4개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 우울 (31.4%)
+
+  - **우울**: 31.4% - 지속적인 우울감과 무력감이 나타남
+
+  - **슬픔**: 21.4% - 깊은 상실감과 애도의 감정이 드러남
+
+  - **불안**: 20.0% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **좌절**: 14.3% - 목표 달성의 어려움과 실망감이 드러남
+
+  - **외로움**: 11.4% - 고립감과 소외감이 느껴짐
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 7
+  total_negative_word_frequency: 7
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 공허하다(1회)
+  - 못하다(1회)
+  - 사소하다(1회)
+  negative_word_density: 5.4

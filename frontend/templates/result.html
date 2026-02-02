@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}학생 일기 감정 분석 - 결과{% endblock %}
+
+{% block content %}
+
+<!-- Chart.js CDN (레이더 그래프용) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- 메인 JS (폼 처리 + 결과 렌더링) -->
+<script src="{{ url_for('static', path='main.js') }}" defer></script>
+
+<div class="page-wrapper">
+    <header class="page-header">
+        <h2>일기 정서 분석 결과</h2>
+        <p class="subtitle">학생 일기에 대한 인지사항 요약과 감정 분포를 보여줍니다.</p>
+    </header>
+
+    <main class="page-main">
+        <section id="result-section" class="card">
+            <h2>인지사항 출력</h2>
+
+            <!-- 학생 기본 정보 요약 -->
+            <div class="result-student-summary">
+                <strong>학생 정보:</strong>
+                <span id="result-student-name">-</span> /
+                <span id="result-student-age">-</span>세 /
+                <span id="result-student-gender">-</span> /
+                LLM 사용: <span id="result-use-llm">-</span>
+            </div>
+
+            <!-- PDF처럼 좌/우 2분할 레이아웃 -->
+            <div class="cognitive-layout" style="display:flex; gap:24px; align-items:stretch; margin-top:12px;">
+
+                <!-- ================= 왼쪽 박스 ================= -->
+                <div class="cognitive-box left-box" style="flex:1.5;">
+                    <h3>전체글 특성</h3>
+                    <ul class="cognitive-list">
+                        <li>글 길이: <strong><span id="detail-text-length">-</span>자</strong></li>
+                        <li>부정 어휘 수: <strong><span id="detail-negative-count">-</span>개</strong></li>
+                        <li>부정 어휘 비율: <strong><span id="detail-negative-frequency">-</span></strong></li>
+                        <li>전체 부정 비율: <strong><span id="detail-negative-ratio">-</span></strong></li>
+                    </ul>
+
+                    <h3>글 특성 요약</h3>
+                    <div id="cg-rule-summary" class="cognitive-paragraph">
+                        분석 결과가 여기에 개조식으로 표시됩니다.
+                    </div>
+
+                    <h3>서술식 피드백</h3>
+                    <div id="cg-llm-feedback" class="feedback-text">
+                        아직 분석 결과가 없습니다. 입력 페이지에서 [분석하기]를 눌러 분석을 먼저 실행해 주세요.
+                    </div>
+                </div>
+
+                <!-- ================= 오른쪽 박스 ================= -->
+                <div class="cognitive-box right-box" style="flex:1;">
+                    <h3>감정 분포 그래프</h3>
+                    <p class="muted small">
+                        규칙 기반 분석에서 계산된 감정별 점수를 시각화한 그래프입니다.
+                    </p>
+
+                    <!-- 육각형(레이더) 그래프 -->
+                    <canvas id="emotion-chart" width="380" height="240"></canvas>
+
+                    <h3>감정 분포 특성</h3>
+                    <ul id="cg-emotion-list" class="cognitive-list small">
+                        <!-- 예: 1. 분노: 21점 (26.2%) - 가장 지배적인 감정 -->
+                    </ul>
+                </div>
+
+            </div> <!-- /.cognitive-layout -->
+        </section>
+    </main>
+</div>
+
+{% endblock %}

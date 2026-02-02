@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+.env.*
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# FastAPI / runtime artifacts
+backend/data/oov_candidates.yaml
+backend/data/oov_candidates.yaml.lock
+backend/data/*.lock
+
+# Model / checkpoints (너희 경로에 맞게 조정)
+models/
+*.pt
+*.bin
+
+# Node (프론트가 있으면)
+node_modules/

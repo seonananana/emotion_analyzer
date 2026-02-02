@@ -1,0 +1,257 @@
+negative_word_analysis:
+  student_name: 김경민
+  analysis_date: '2025-12-24'
+  text_length: 1708
+  total_negative_words_found: 12
+  total_negative_word_frequency: 16
+  word_frequency:
+    못하다: 4
+    떨다: 2
+    떨어지다: 1
+    무시하다: 1
+    배신하다: 1
+    버겁다: 1
+    부족하다: 1
+    불안하다: 1
+    사소하다: 1
+    울적하다: 1
+    잊다: 1
+    힘들다: 1
+  detailed_word_analysis:
+    못하다:
+      frequency: 4
+      forms:
+      - form: 못했습니다
+        start: 1445
+        end: 1450
+        context: 러운 성적을 내지 못했습니다. 이러한 상황들이
+      - form: 못했
+        start: 223
+        end: 225
+        context: 도할 생각도 하지 못했었습니다. 어느 날
+      - form: 못했
+        start: 1419
+        end: 1421
+        context: 좋은 결과를 내지 못했고 수학 시험에서도
+      - form: 못한
+        start: 1142
+        end: 1144
+        context: ' 행동은 올바르지 못한 행동이니 하지 않'
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 3
+    떨다:
+      frequency: 2
+      forms:
+      - form: 떨어
+        start: 1013
+        end: 1015
+        context: 자책감과 자존감을 떨어트리는 원인이 되었
+      - form: 떨어
+        start: 1226
+        end: 1228
+        context: 뢰는 바닥 끝까지 떨어졌었습니다. 예수님
+      emotions:
+        우울: 0
+        분노: 0
+        불안: 8
+        슬픔: 0
+        외로움: 2
+        좌절: 0
+    떨어지다:
+      frequency: 1
+      forms:
+      - form: 떨어지는
+        start: 970
+        end: 974
+        context: ' 성적은 계속해서 떨어지는 것 같다는 생각이'
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 5
+        슬픔: 1
+        외로움: 0
+        좌절: 2
+    무시하다:
+      frequency: 1
+      forms:
+      - form: 무시하고
+        start: 1183
+        end: 1187
+        context: 친구는 제 얘기를 무시하고 저를 속이며 제가
+      emotions:
+        우울: 1
+        분노: 6
+        불안: 0
+        슬픔: 1
+        외로움: 0
+        좌절: 2
+    배신하다:
+      frequency: 1
+      forms:
+      - form: 배신하지
+        start: 749
+        end: 753
+        context: . 흔히 “노력은 배신하지 않는다”라고 말하
+      emotions:
+        우울: 1
+        분노: 5
+        불안: 0
+        슬픔: 1
+        외로움: 0
+        좌절: 3
+    버겁다:
+      frequency: 1
+      forms:
+      - form: 버겁게
+        start: 1646
+        end: 1649
+        context: 진 상황들이 너무 버겁게 느껴져 행복하다는
+      emotions:
+        우울: 3
+        분노: 0
+        불안: 2
+        슬픔: 1
+        외로움: 2
+        좌절: 2
+    부족하다:
+      frequency: 1
+      forms:
+      - form: 부족하다
+        start: 685
+        end: 689
+        context: 수학 성적이 항상 부족하다고 생각했기 때문에
+      emotions:
+        우울: 1
+        분노: 1
+        불안: 1
+        슬픔: 1
+        외로움: 1
+        좌절: 5
+    불안하다:
+      frequency: 1
+      forms:
+      - form: 불안한
+        start: 283
+        end: 286
+        context: 다. 그래서 저는 불안한 마음을 이끌고 교
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 9
+        슬픔: 0
+        외로움: 0
+        좌절: 0
+    사소하다:
+      frequency: 1
+      forms:
+      - form: 사소한
+        start: 396
+        end: 399
+        context: ' 바뀌면서 잊었던 사소한 행복들이 눈에 보'
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 2
+        슬픔: 2
+        외로움: 1
+        좌절: 3
+    울적하다:
+      frequency: 1
+      forms:
+      - form: 울적한
+        start: 1687
+        end: 1690
+        context: 억을 떠올릴 때면 울적한 느낌이 많이 드는
+      emotions:
+        우울: 7
+        분노: 0
+        불안: 0
+        슬픔: 3
+        외로움: 0
+        좌절: 0
+    잊다:
+      frequency: 1
+      forms:
+      - form: 잊었
+        start: 392
+        end: 394
+        context: 안함으로 바뀌면서 잊었던 사소한 행복들이
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 1
+        슬픔: 3
+        외로움: 4
+        좌절: 1
+    힘들다:
+      frequency: 1
+      forms:
+      - form: 힘들었
+        start: 93
+        end: 96
+        context: 다시 얘기하겠지만 힘들었던 고등학교 2학년
+      emotions:
+        우울: 3
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 2
+  emotion_distribution:
+    우울: 30
+    분노: 12
+    불안: 51
+    슬픔: 18
+    외로움: 17
+    좌절: 32
+  total_weighted_emotion_score: 160
+  emotion_percentages: &id001
+    우울: 18.8
+    분노: 7.5
+    불안: 31.9
+    슬픔: 11.2
+    외로움: 10.6
+    좌절: 20.0
+text_analysis_comment: '
+
+  ## 김경민 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 1,708자
+
+  - **부정 어휘 수**: 12개 (중복 포함 16회)
+
+  - **부정 어휘 밀도**: 1000자당 9.4개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 불안 (31.9%)
+
+  - **불안**: 31.9% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **좌절**: 20.0% - 목표 달성의 어려움과 실망감이 드러남
+
+  - **우울**: 18.8% - 지속적인 우울감과 무력감이 나타남
+
+  - **슬픔**: 11.2% - 깊은 상실감과 애도의 감정이 드러남
+
+  - **외로움**: 10.6% - 고립감과 소외감이 느껴짐
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 12
+  total_negative_word_frequency: 16
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 못하다(4회)
+  - 떨다(2회)
+  - 떨어지다(1회)
+  negative_word_density: 9.4

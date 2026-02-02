@@ -1,0 +1,70 @@
+negative_word_analysis:
+  student_name: 김다혜
+  analysis_date: '2025-12-24'
+  text_length: 1341
+  total_negative_words_found: 1
+  total_negative_word_frequency: 1
+  word_frequency:
+    상하다: 1
+  detailed_word_analysis:
+    상하다:
+      frequency: 1
+      forms:
+      - form: 상하면서
+        start: 173
+        end: 177
+        context: 는 나의 모습을 상상하면서 설렘이 크게 느껴
+      emotions:
+        우울: 3
+        분노: 3
+        불안: 1
+        슬픔: 0
+        외로움: 2
+        좌절: 1
+  emotion_distribution:
+    우울: 3
+    분노: 3
+    불안: 1
+    슬픔: 0
+    외로움: 2
+    좌절: 1
+  total_weighted_emotion_score: 10
+  emotion_percentages: &id001
+    우울: 30.0
+    분노: 30.0
+    불안: 10.0
+    슬픔: 0.0
+    외로움: 20.0
+    좌절: 10.0
+text_analysis_comment: '
+
+  ## 김다혜 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 1,341자
+
+  - **부정 어휘 수**: 1개 (중복 포함 1회)
+
+  - **부정 어휘 밀도**: 1000자당 0.7개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 우울 (30.0%)
+
+  - **우울**: 30.0% - 지속적인 우울감과 무력감이 나타남
+
+  - **분노**: 30.0% - 강한 분노와 적대감이 표현됨
+
+  - **외로움**: 20.0% - 고립감과 소외감이 느껴짐
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 1
+  total_negative_word_frequency: 1
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 상하다(1회)
+  negative_word_density: 0.7

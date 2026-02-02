@@ -1,0 +1,38 @@
+# Merged requirements for Emotion Analyzer + ml_oov (CPU-friendly)
+#
+# NOTE (PyTorch):
+#   If you are on CPU-only, install PyTorch with:
+#     pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision torchaudio
+#   (then install this requirements file)
+
+# --- Web/API ---
+fastapi[standard]
+uvicorn[standard]
+jinja2
+python-dotenv
+
+# --- LLM / Parsing / Storage ---
+together
+bs4
+beautifulsoup4
+PyYAML>=6.0
+
+# --- Core analysis / UI ---
+datasets
+pydantic
+matplotlib
+chrisbase
+
+# --- Notebooks (optional) ---
+jupyter
+ipywidgets
+
+# --- OOV model (A-side) ---
+transformers
+accelerate
+scikit-learn
+numpy
+pandas
+
+# --- 리포트 생성 ---
+matplotlib

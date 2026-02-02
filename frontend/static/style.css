@@ -1,0 +1,387 @@
+/*frontend/static/css/style.css*/
+
+/* 기본 폰트 설정: 시스템 폰트 + Noto Sans */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans KR",
+    system-ui, sans-serif;
+  background-color: #f5f5f7;
+  color: #222;
+}
+
+/* 헤더 */
+.app-header {
+  background: #4a6fff;
+  color: #fff;
+  padding: 16px 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-inner .logo {
+  font-size: 1.6rem;
+}
+
+.header-inner .title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* 메인 컨테이너 */
+.app-main {
+  max-width: 960px;
+  margin: 24px auto;
+  padding: 0 16px 40px;
+}
+
+.container {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px 24px 28px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+.section-title {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* 폼 */
+.analyze-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+label {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  border-radius: 8px;
+  border: 1px solid #d0d4e4;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #4a6fff;
+  box-shadow: 0 0 0 2px rgba(74, 111, 255, 0.2);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 버튼 */
+.btn-primary,
+.btn-secondary {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
+  background: #4a6fff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #3d5ae0;
+}
+
+.btn-secondary {
+  background: #eef0ff;
+  color: #3141a3;
+}
+
+.btn-secondary:hover {
+  background: #e0e4ff;
+}
+
+/* 결과 페이지 공통 레이아웃 (input 화면과 비슷하게) */
+.page-wrapper {
+  max-width: 960px;
+  margin: 24px auto;
+  padding: 0 16px 40px;
+}
+
+.page-header {
+  margin-bottom: 16px;
+}
+
+.page-header h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.page-header .subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* 인지사항 전체를 감싸는 카드 (input의 .container 느낌) */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px 24px 28px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+/* 알림박스 */
+.alert {
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.alert-error {
+  background: #ffe5e5;
+  color: #a12222;
+}
+
+/* 결과 페이지 레이아웃 */
+.result-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+}
+
+.result-panel {
+  background: #fafbff;
+  border-radius: 10px;
+  padding: 16px 18px;
+  border: 1px solid #e1e4f0;
+}
+
+.result-panel h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.negative-ratio {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #d93025;
+}
+
+.summary-text {
+  line-height: 1.5;
+}
+
+.chart-placeholder {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* 각 박스 공통 스타일 */
+.cognitive-box {
+  flex: 1;
+  padding: 16px 20px;
+  border: 2px dashed #d33;   /* 예시 PDF 느낌의 빨간 점선 테두리 */
+  border-radius: 4px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* 왼쪽 박스는 글 설명이 많으니까 조금 더 넓게 */
+.cognitive-box.left-box {
+  flex: 1.2;
+}
+
+/* 오른쪽 박스 (그래프 + 서술식) */
+.cognitive-box.right-box {
+  flex: 1;
+}
+
+/* 박스 안 제목들 */
+.cognitive-box h3 {
+  margin-top: 4px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* 리스트/문단 정리 */
+.cognitive-list {
+  margin: 0 0 12px 0;
+  padding-left: 18px;
+  font-size: 0.9rem;
+}
+
+.cognitive-list.small {
+  font-size: 0.85rem;
+}
+
+.cognitive-paragraph,
+.feedback-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* 그래프 캔버스 가운데 정렬 */
+#emotion-chart {
+  display: block;
+  margin: 8px auto 16px auto;
+  max-width: 100%;
+}
+
+/* 인지사항 2분할 레이아웃 */
+.cognitive-layout {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+  margin-top: 12px;
+}
+
+/* 공통 박스 스타일 – 빨간 점선 제거하고 심플하게 */
+.cognitive-box {
+  flex: 1;
+  padding: 16px 20px;
+  border-radius: 10px;
+  background-color: #fafbff;              /* 아주 옅은 배경 */
+  border: 1px solid #e1e4f0;             /* 옅은 회색 테두리 */
+  box-sizing: border-box;
+}
+
+/* 왼쪽 박스는 조금 더 넓게 */
+.cognitive-box.left-box {
+  flex: 1;
+}
+
+/* 오른쪽 박스 (그래프 + 피드백) */
+.cognitive-box.right-box {
+  flex: 1;
+}
+
+/* 박스 안 제목 */
+.cognitive-box h3 {
+  margin-top: 4px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* 리스트/문단 */
+.cognitive-list {
+  margin: 0 0 12px 0;
+  padding-left: 18px;
+  font-size: 0.9rem;
+}
+
+.cognitive-list.small {
+  font-size: 0.85rem;
+}
+
+.cognitive-paragraph,
+.feedback-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* 그래프 캔버스 가운데 배치 */
+#emotion-chart {
+  display: block;
+  margin: 8px auto 16px auto;
+  max-width: 100%;
+}
+
+/* 모바일에서는 위/아래로 쌓기 */
+@media (max-width: 768px) {
+  .cognitive-layout {
+    flex-direction: column;
+  }
+
+  .cognitive-box.left-box,
+  .cognitive-box.right-box {
+    flex: none;
+    width: 100%;
+  }
+}
+
+/* JS에서 사용하는 상태 표시용 유틸 클래스 */
+.hidden {
+  display: none !important;
+}
+
+.loading {
+  margin-left: 8px;
+  font-size: 0.9rem;
+  color: #555;
+}

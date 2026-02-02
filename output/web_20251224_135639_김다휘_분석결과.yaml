@@ -1,0 +1,223 @@
+negative_word_analysis:
+  student_name: 김다휘
+  analysis_date: '2025-12-24'
+  text_length: 1843
+  total_negative_words_found: 10
+  total_negative_word_frequency: 13
+  word_frequency:
+    속상하다: 2
+    억울하다: 2
+    울다: 2
+    두렵다: 1
+    못하다: 1
+    미안하다: 1
+    불쾌하다: 1
+    아프다: 1
+    위험하다: 1
+    힘들다: 1
+  detailed_word_analysis:
+    속상하다:
+      frequency: 2
+      forms:
+      - form: 속상해
+        start: 1346
+        end: 1349
+        context: . 부모님은 너무 속상해하셨다. 그러나 다
+      - form: 속상해
+        start: 1375
+        end: 1378
+        context: ' 자기들 부모님이 속상해하신다고 나를 죄인'
+      emotions:
+        우울: 2
+        분노: 1
+        불안: 1
+        슬픔: 3
+        외로움: 2
+        좌절: 1
+    억울하다:
+      frequency: 2
+      forms:
+      - form: 억울해서
+        start: 1164
+        end: 1168
+        context: ' 했다. 난 너무 억울해서 손과 목소리가 떨'
+      - form: 억울한
+        start: 1425
+        end: 1428
+        context: ' 상처로 남았다. 억울한건 난데 왜 날 그'
+      emotions:
+        우울: 0
+        분노: 7
+        불안: 0
+        슬픔: 0
+        외로움: 0
+        좌절: 3
+    울다:
+      frequency: 2
+      forms:
+      - form: 울다
+        start: 803
+        end: 805
+        context: ' 한참 손을 떨며 울다가 학교로 와서 얘'
+      - form: 울었
+        start: 1570
+        end: 1572
+        context: ' 너무 미안하다며 울었고, 민지는 끝까지'
+      emotions:
+        우울: 3
+        분노: 0
+        불안: 0
+        슬픔: 6
+        외로움: 0
+        좌절: 1
+    두렵다:
+      frequency: 1
+      forms:
+      - form: 두렵지
+        start: 969
+        end: 972
+        context: '와 맞서는게 전혀 두렵지 않았다. 학교에 '
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 9
+        슬픔: 0
+        외로움: 0
+        좌절: 0
+    못하다:
+      frequency: 1
+      forms:
+      - form: 못할
+        start: 744
+        end: 746
+        context: 모른채 입에 담지 못할 험한 말들을 들은
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 3
+    미안하다:
+      frequency: 1
+      forms:
+      - form: 미안하다
+        start: 1564
+        end: 1568
+        context: . 서윤이는 너무 미안하다며 울었고, 민지는
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 2
+        슬픔: 4
+        외로움: 2
+        좌절: 1
+    불쾌하다:
+      frequency: 1
+      forms:
+      - form: 불쾌했
+        start: 260
+        end: 263
+        context: 썼고 난 그 점이 불쾌했다. 그래서 여전히
+      emotions:
+        우울: 0
+        분노: 9
+        불안: 1
+        슬픔: 0
+        외로움: 0
+        좌절: 0
+    아프다:
+      frequency: 1
+      forms:
+      - form: 아팠다
+        start: 1469
+        end: 1472
+        context: 상상이 가서 너무 아팠다. 둘째날 난 아빠
+      emotions:
+        우울: 4
+        분노: 1
+        불안: 1
+        슬픔: 1
+        외로움: 3
+        좌절: 0
+    위험하다:
+      frequency: 1
+      forms:
+      - form: 위험한
+        start: 411
+        end: 414
+        context: 라는 홀수는 매우 위험한 숫자라는 것을 그
+      emotions:
+        우울: 0
+        분노: 2
+        불안: 7
+        슬픔: 0
+        외로움: 0
+        좌절: 1
+    힘들다:
+      frequency: 1
+      forms:
+      - form: 힘들었
+        start: 1824
+        end: 1827
+        context: ' 내 인생에 가장 힘들었던 순간을 이겨낼 '
+      emotions:
+        우울: 3
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 2
+  emotion_distribution:
+    우울: 21
+    분노: 28
+    불안: 28
+    슬픔: 25
+    외로움: 11
+    좌절: 17
+  total_weighted_emotion_score: 130
+  emotion_percentages: &id001
+    우울: 16.2
+    분노: 21.5
+    불안: 21.5
+    슬픔: 19.2
+    외로움: 8.5
+    좌절: 13.1
+text_analysis_comment: '
+
+  ## 김다휘 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 1,843자
+
+  - **부정 어휘 수**: 10개 (중복 포함 13회)
+
+  - **부정 어휘 밀도**: 1000자당 7.1개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 분노 (21.5%)
+
+  - **분노**: 21.5% - 강한 분노와 적대감이 표현됨
+
+  - **불안**: 21.5% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **슬픔**: 19.2% - 깊은 상실감과 애도의 감정이 드러남
+
+  - **우울**: 16.2% - 지속적인 우울감과 무력감이 나타남
+
+  - **좌절**: 13.1% - 목표 달성의 어려움과 실망감이 드러남
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 10
+  total_negative_word_frequency: 13
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 속상하다(2회)
+  - 억울하다(2회)
+  - 울다(2회)
+  negative_word_density: 7.1

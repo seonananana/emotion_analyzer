@@ -1,0 +1,76 @@
+<!-- frontend/templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}학생 일기 감정 분석 - 입력{% endblock %}
+
+{% block content %}
+<section class="container">
+  <h2 class="section-title">1. 학생 일기 입력</h2>
+
+  {% if error %}
+  <div class="alert alert-error">
+    {{ error }}
+  </div>
+  {% endif %}
+
+  <!-- JS가 잡아쓸 수 있도록 id 추가 -->
+  <form id="analyze-form" class="analyze-form" action="/analyze_form" method="post">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="student-name">이름</label>
+        <!-- id만 JS에서 기대하는 이름으로 변경 (디자인 변화 없음) -->
+        <input
+          type="text"
+          id="student-name"
+          name="name"
+          required
+          placeholder="홍길동"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="student-age">나이</label>
+        <input
+          type="number"
+          id="student-age"
+          name="age"
+          min="1"
+          max="100"
+          required
+          placeholder="15"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="gender">성별</label>
+        <!-- 성별은 기존처럼 셀렉트 박스 유지 -->
+        <select id="gender" name="gender" required>
+          <option value="">선택</option>
+          <option value="여">여</option>
+          <option value="남">남</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="diary-text">일기 내용</label>
+      <!-- textarea id도 JS에서 쓰는 이름으로 변경 -->
+      <textarea
+        id="diary-text"
+        name="text"
+        rows="10"
+        placeholder="분석할 일기 내용을 여기에 입력하세요."
+        required
+      ></textarea>
+    </div>
+
+    <!-- LLM 사용 여부: 화면엔 안 보이고 항상 사용하도록 hidden 필드로 전달 -->
+    <input type="hidden" id="use-llm" name="use_llm" value="true" />
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary">분석하기</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

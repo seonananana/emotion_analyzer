@@ -1,0 +1,188 @@
+negative_word_analysis:
+  student_name: 양0혁
+  analysis_date: '2026-01-19'
+  text_length: 1390
+  total_negative_words_found: 7
+  total_negative_word_frequency: 13
+  word_frequency:
+    못하다: 4
+    예민하다: 3
+    불안하다: 2
+    과도하다: 1
+    아프다: 1
+    잃다: 1
+    충격받다: 1
+  detailed_word_analysis:
+    못하다:
+      frequency: 4
+      forms:
+      - form: 못하고
+        start: 1202
+        end: 1205
+        context: '이 있었는지 기억 못하고 있었는데 영상을 '
+      - form: 못하는
+        start: 813
+        end: 816
+        context: 험실 환경이 좋지 못하는 것처럼 예상치 못
+      - form: 못했
+        start: 61
+        end: 63
+        context: ' 아무것도 정하지 못했기 때문에 생기부가'
+      - form: 못한
+        start: 825
+        end: 827
+        context: 는 것처럼 예상치 못한 변수가 나타나거나
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 3
+    예민하다:
+      frequency: 3
+      forms:
+      - form: 예민하다
+        start: 1334
+        end: 1338
+        context: 3학년때 생기부에 예민하다는 언급이 되어있었
+      - form: 예민해
+        start: 185
+        end: 188
+        context: ', 공부를 하느라 예민해져서 그런지 같은 '
+      - form: 예민해
+        start: 1310
+        end: 1313
+        context: 굉장히 강박적이고 예민해 보였는지 고등학교
+      emotions:
+        우울: 1
+        분노: 1
+        불안: 6
+        슬픔: 1
+        외로움: 1
+        좌절: 0
+    불안하다:
+      frequency: 2
+      forms:
+      - form: 불안해
+        start: 886
+        end: 889
+        context: 되기 때문에 더욱 불안해졌다. 따라서 불안
+      - form: 불안했
+        start: 1229
+        end: 1232
+        context: '격받았다. 그렇게 불안했기 때문에 오히려 '
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 9
+        슬픔: 0
+        외로움: 0
+        좌절: 0
+    과도하다:
+      frequency: 1
+      forms:
+      - form: 과도하게
+        start: 1033
+        end: 1037
+        context: ' 한번에 푸는 등 과도하게 강박적으로 행동했'
+      emotions:
+        우울: 1
+        분노: 3
+        불안: 0
+        슬픔: 2
+        외로움: 2
+        좌절: 2
+    아프다:
+      frequency: 1
+      forms:
+      - form: 아프거나
+        start: 797
+        end: 801
+        context: 일지라도 수능날에 아프거나 수험실 환경이 좋
+      emotions:
+        우울: 4
+        분노: 1
+        불안: 1
+        슬픔: 1
+        외로움: 3
+        좌절: 0
+    잃다:
+      frequency: 1
+      forms:
+      - form: 잃게
+        start: 1382
+        end: 1384
+        context: 된 삶, 자존감을 잃게 되었다."
+      emotions:
+        우울: 4
+        분노: 0
+        불안: 2
+        슬픔: 3
+        외로움: 0
+        좌절: 1
+    충격받다:
+      frequency: 1
+      forms:
+      - form: 충격받았
+        start: 1218
+        end: 1222
+        context: 는데 영상을 보고 충격받았다. 그렇게 불안했
+      emotions:
+        우울: 1
+        분노: 3
+        불안: 3
+        슬픔: 1
+        외로움: 0
+        좌절: 2
+  emotion_distribution:
+    우울: 23
+    분노: 10
+    불안: 54
+    슬픔: 14
+    외로움: 12
+    좌절: 17
+  total_weighted_emotion_score: 130
+  emotion_percentages: &id001
+    우울: 17.7
+    분노: 7.7
+    불안: 41.5
+    슬픔: 10.8
+    외로움: 9.2
+    좌절: 13.1
+text_analysis_comment: '
+
+  ## 양0혁 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 1,390자
+
+  - **부정 어휘 수**: 7개 (중복 포함 13회)
+
+  - **부정 어휘 밀도**: 1000자당 9.4개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 불안 (41.5%)
+
+  - **불안**: 41.5% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **우울**: 17.7% - 지속적인 우울감과 무력감이 나타남
+
+  - **좌절**: 13.1% - 목표 달성의 어려움과 실망감이 드러남
+
+  - **슬픔**: 10.8% - 깊은 상실감과 애도의 감정이 드러남
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 7
+  total_negative_word_frequency: 13
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 못하다(4회)
+  - 예민하다(3회)
+  - 불안하다(2회)
+  negative_word_density: 9.4

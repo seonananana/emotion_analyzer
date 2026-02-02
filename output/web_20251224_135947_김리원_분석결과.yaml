@@ -1,0 +1,191 @@
+negative_word_analysis:
+  student_name: 김리원
+  analysis_date: '2025-12-24'
+  text_length: 1364
+  total_negative_words_found: 8
+  total_negative_word_frequency: 11
+  word_frequency:
+    아프다: 4
+    놀라다: 1
+    당황하다: 1
+    머뭇거리다: 1
+    미안하다: 1
+    슬프다: 1
+    우울하다: 1
+    힘들다: 1
+  detailed_word_analysis:
+    아프다:
+      frequency: 4
+      forms:
+      - form: 아프고
+        start: 30
+        end: 33
+        context: 눈이 빠질 것처럼 아프고 이로 인해 오른쪽
+      - form: 아파
+        start: 49
+        end: 51
+        context: ' 오른쪽 머리까지 아파졌다. 자주 있는 '
+      - form: 아픈
+        start: 512
+        end: 514
+        context: . “차라리 내가 아픈 게 다행이겠구나.
+      - form: 아픈
+        start: 667
+        end: 669
+        context: 겠지만 이건 내가 아픈 것이니, 내가 마
+      emotions:
+        우울: 4
+        분노: 1
+        불안: 1
+        슬픔: 1
+        외로움: 3
+        좌절: 0
+    놀라다:
+      frequency: 1
+      forms:
+      - form: 놀라고
+        start: 412
+        end: 415
+        context: 들었을 때는 많이 놀라고 당황했다. 이어서
+      emotions:
+        우울: 0
+        분노: 3
+        불안: 6
+        슬픔: 1
+        외로움: 0
+        좌절: 0
+    당황하다:
+      frequency: 1
+      forms:
+      - form: 당황했
+        start: 416
+        end: 419
+        context: 때는 많이 놀라고 당황했다. 이어서 뇌 수
+      emotions:
+        우울: 1
+        분노: 1
+        불안: 7
+        슬픔: 1
+        외로움: 0
+        좌절: 0
+    머뭇거리다:
+      frequency: 1
+      forms:
+      - form: 머뭇거리고
+        start: 1296
+        end: 1301
+        context: 음식을 먹기 전에 머뭇거리고 멈칫하는 나의 모
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 7
+        슬픔: 0
+        외로움: 2
+        좌절: 0
+    미안하다:
+      frequency: 1
+      forms:
+      - form: 미안한
+        start: 649
+        end: 652
+        context: 도, 위로하기에도 미안한 상황이었겠지만 이
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 2
+        슬픔: 4
+        외로움: 2
+        좌절: 1
+    슬프다:
+      frequency: 1
+      forms:
+      - form: 슬프기
+        start: 1160
+        end: 1163
+        context: '아보았을 때 마냥 슬프기만 하지는 않다. '
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 0
+        슬픔: 8
+        외로움: 0
+        좌절: 0
+    우울하다:
+      frequency: 1
+      forms:
+      - form: 우울했
+        start: 475
+        end: 478
+        context: 게 했다. 그러나 우울했던 것도 잠시, 한
+      emotions:
+        우울: 10
+        분노: 0
+        불안: 0
+        슬픔: 0
+        외로움: 0
+        좌절: 0
+    힘들다:
+      frequency: 1
+      forms:
+      - form: 힘들게
+        start: 463
+        end: 466
+        context: 다는 사실이 나를 힘들게 했다. 그러나 우
+      emotions:
+        우울: 3
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 2
+  emotion_distribution:
+    우울: 34
+    분노: 8
+    불안: 29
+    슬픔: 19
+    외로움: 17
+    좌절: 3
+  total_weighted_emotion_score: 110
+  emotion_percentages: &id001
+    우울: 30.9
+    분노: 7.3
+    불안: 26.4
+    슬픔: 17.3
+    외로움: 15.5
+    좌절: 2.7
+text_analysis_comment: '
+
+  ## 김리원 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 1,364자
+
+  - **부정 어휘 수**: 8개 (중복 포함 11회)
+
+  - **부정 어휘 밀도**: 1000자당 8.1개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 우울 (30.9%)
+
+  - **우울**: 30.9% - 지속적인 우울감과 무력감이 나타남
+
+  - **불안**: 26.4% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **슬픔**: 17.3% - 깊은 상실감과 애도의 감정이 드러남
+
+  - **외로움**: 15.5% - 고립감과 소외감이 느껴짐
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 8
+  total_negative_word_frequency: 11
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 아프다(4회)
+  - 놀라다(1회)
+  - 당황하다(1회)
+  negative_word_density: 8.1

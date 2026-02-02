@@ -1,0 +1,176 @@
+negative_word_analysis:
+  student_name: 윤0인
+  analysis_date: '2026-01-19'
+  text_length: 1560
+  total_negative_words_found: 7
+  total_negative_word_frequency: 10
+  word_frequency:
+    못하다: 4
+    부족하다: 1
+    사소하다: 1
+    씁쓸하다: 1
+    어긋나다: 1
+    의심하다: 1
+    탓하다: 1
+  detailed_word_analysis:
+    못하다:
+      frequency: 4
+      forms:
+      - form: 못하고
+        start: 943
+        end: 946
+        context: 그대로 받아들이지 못하고 마음의 벽을 높였
+      - form: 못하는
+        start: 457
+        end: 460
+        context: ' 연애로 발전하지 못하는 일이 반복되었다.'
+      - form: 못했
+        start: 1219
+        end: 1221
+        context: ' 연애로 이어지지 못했기 때문이다. 그런'
+      - form: 못한
+        start: 743
+        end: 745
+        context: 시 끝내 발전하지 못한 채 흐지부지 사라
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 3
+    부족하다:
+      frequency: 1
+      forms:
+      - form: 부족한
+        start: 1359
+        end: 1362
+        context: ', ‘나는 무엇이 부족한 걸까?’ 하는 질'
+      emotions:
+        우울: 1
+        분노: 1
+        불안: 1
+        슬픔: 1
+        외로움: 1
+        좌절: 5
+    사소하다:
+      frequency: 1
+      forms:
+      - form: 사소한
+        start: 849
+        end: 852
+        context: ' 않았다. 상대의 사소한 단점이 눈에 들어'
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 2
+        슬픔: 2
+        외로움: 1
+        좌절: 3
+    씁쓸하다:
+      frequency: 1
+      forms:
+      - form: 씁쓸했
+        start: 1164
+        end: 1167
+        context: '히 마음 한구석이 씁쓸했다. 나는 그보다 '
+      emotions:
+        우울: 5
+        분노: 0
+        불안: 0
+        슬픔: 2
+        외로움: 0
+        좌절: 3
+    어긋나다:
+      frequency: 1
+      forms:
+      - form: 어긋나고
+        start: 1202
+        end: 1206
+        context: 에도 매번 관계가 어긋나고 끝내 연애로 이어
+      emotions:
+        우울: 1
+        분노: 2
+        불안: 3
+        슬픔: 2
+        외로움: 0
+        좌절: 2
+    의심하다:
+      frequency: 1
+      forms:
+      - form: 의심하게
+        start: 618
+        end: 622
+        context: '스스로의 가치까지 의심하게 만들었다. 가장 '
+      emotions:
+        우울: 0
+        분노: 0
+        불안: 7
+        슬픔: 1
+        외로움: 1
+        좌절: 1
+    탓하다:
+      frequency: 1
+      forms:
+      - form: 탓하게
+        start: 1471
+        end: 1474
+        context: 부터는 나 자신을 탓하게 되고, 사랑 앞에
+      emotions:
+        우울: 2
+        분노: 6
+        불안: 0
+        슬픔: 1
+        외로움: 0
+        좌절: 1
+  emotion_distribution:
+    우울: 19
+    분노: 9
+    불안: 25
+    슬픔: 13
+    외로움: 7
+    좌절: 27
+  total_weighted_emotion_score: 100
+  emotion_percentages: &id001
+    우울: 19.0
+    분노: 9.0
+    불안: 25.0
+    슬픔: 13.0
+    외로움: 7.0
+    좌절: 27.0
+text_analysis_comment: '
+
+  ## 윤0인 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 1,560자
+
+  - **부정 어휘 수**: 7개 (중복 포함 10회)
+
+  - **부정 어휘 밀도**: 1000자당 6.4개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 좌절 (27.0%)
+
+  - **좌절**: 27.0% - 목표 달성의 어려움과 실망감이 드러남
+
+  - **불안**: 25.0% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **우울**: 19.0% - 지속적인 우울감과 무력감이 나타남
+
+  - **슬픔**: 13.0% - 깊은 상실감과 애도의 감정이 드러남
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 7
+  total_negative_word_frequency: 10
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 못하다(4회)
+  - 부족하다(1회)
+  - 사소하다(1회)
+  negative_word_density: 6.4

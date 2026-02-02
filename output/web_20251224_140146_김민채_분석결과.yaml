@@ -1,0 +1,225 @@
+negative_word_analysis:
+  student_name: 김민채
+  analysis_date: '2025-12-24'
+  text_length: 1382
+  total_negative_words_found: 10
+  total_negative_word_frequency: 14
+  word_frequency:
+    떨다: 3
+    속상하다: 2
+    이상하다: 2
+    떨어지다: 1
+    못하다: 1
+    무섭다: 1
+    벗어나지 못하다: 1
+    불안하다: 1
+    사라지다: 1
+    억울하다: 1
+  detailed_word_analysis:
+    떨다:
+      frequency: 3
+      forms:
+      - form: 떨어
+        start: 483
+        end: 485
+        context: 형은 항상 바닥에 떨어져 있었다. 처음에
+      - form: 떨어
+        start: 515
+        end: 517
+        context: 러내리면서 인형이 떨어진거라고 생각했다.
+      - form: 떨고
+        start: 186
+        end: 188
+        context: '이 될때마다 덜덜 떨고 있는 나였다 이 '
+      emotions:
+        우울: 0
+        분노: 0
+        불안: 8
+        슬픔: 0
+        외로움: 2
+        좌절: 0
+    속상하다:
+      frequency: 2
+      forms:
+      - form: 속상했
+        start: 359
+        end: 362
+        context: '끔은 이 인형한테 속상했던 적이 있었다. '
+      - form: 속상했
+        start: 611
+        end: 614
+        context: 상 너무 억울하고 속상했다. 분명히 아침에
+      emotions:
+        우울: 2
+        분노: 1
+        불안: 1
+        슬픔: 3
+        외로움: 2
+        좌절: 1
+    이상하다:
+      frequency: 2
+      forms:
+      - form: 이상하게
+        start: 447
+        end: 451
+        context: 아오면 항상 방이 이상하게 어질러져 있었다.
+      - form: 이상한
+        start: 1101
+        end: 1104
+        context: 나한테서 일어났던 이상한 일들은 모두 장난
+      emotions:
+        우울: 1
+        분노: 3
+        불안: 4
+        슬픔: 0
+        외로움: 0
+        좌절: 2
+    떨어지다:
+      frequency: 1
+      forms:
+      - form: 떨어지는
+        start: 96
+        end: 100
+        context: '없는 낭떠러지에서 떨어지는 꿈을 꾸고, 또 '
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 5
+        슬픔: 1
+        외로움: 0
+        좌절: 2
+    못하다:
+      frequency: 1
+      forms:
+      - form: 못했
+        start: 343
+        end: 345
+        context: 없이는 잠에 들지 못했다. 가끔은 이 인
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 3
+    무섭다:
+      frequency: 1
+      forms:
+      - form: 무섭기
+        start: 879
+        end: 882
+        context: ' 한편으로는 조금 무섭기도 했다. 그 뒤로'
+      emotions:
+        우울: 0
+        분노: 0
+        불안: 9
+        슬픔: 0
+        외로움: 0
+        좌절: 1
+    벗어나지 못하다:
+      frequency: 1
+      forms:
+      - form: 벗어나지 못하는
+        start: 271
+        end: 279
+        context: ' 마치 두려움에서 벗어나지 못하는 나를 위해 하나님'
+      emotions:
+        우울: 4
+        분노: 0
+        불안: 2
+        슬픔: 1
+        외로움: 0
+        좌절: 3
+    불안하다:
+      frequency: 1
+      forms:
+      - form: 불안해서
+        start: 59
+        end: 63
+        context: 는 어릴 때 항상 불안해서 밤에 악몽을 자주
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 9
+        슬픔: 0
+        외로움: 0
+        좌절: 0
+    사라지다:
+      frequency: 1
+      forms:
+      - form: 사라지지
+        start: 160
+        end: 164
+        context: 깨어나도 무서움은 사라지지 않았고, 나는 늘
+      emotions:
+        우울: 3
+        분노: 0
+        불안: 1
+        슬픔: 4
+        외로움: 2
+        좌절: 0
+    억울하다:
+      frequency: 1
+      forms:
+      - form: 억울하고
+        start: 606
+        end: 610
+        context: 때마다 항상 너무 억울하고 속상했다. 분명히
+      emotions:
+        우울: 0
+        분노: 7
+        불안: 0
+        슬픔: 0
+        외로움: 0
+        좌절: 3
+  emotion_distribution:
+    우울: 18
+    분노: 15
+    불안: 63
+    슬픔: 13
+    외로움: 13
+    좌절: 18
+  total_weighted_emotion_score: 140
+  emotion_percentages: &id001
+    우울: 12.9
+    분노: 10.7
+    불안: 45.0
+    슬픔: 9.3
+    외로움: 9.3
+    좌절: 12.9
+text_analysis_comment: '
+
+  ## 김민채 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 1,382자
+
+  - **부정 어휘 수**: 10개 (중복 포함 14회)
+
+  - **부정 어휘 밀도**: 1000자당 10.1개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 불안 (45.0%)
+
+  - **불안**: 45.0% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **우울**: 12.9% - 지속적인 우울감과 무력감이 나타남
+
+  - **좌절**: 12.9% - 목표 달성의 어려움과 실망감이 드러남
+
+  - **분노**: 10.7% - 강한 분노와 적대감이 표현됨
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 10
+  total_negative_word_frequency: 14
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 떨다(3회)
+  - 속상하다(2회)
+  - 이상하다(2회)
+  negative_word_density: 10.1

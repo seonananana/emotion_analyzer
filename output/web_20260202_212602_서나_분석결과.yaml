@@ -1,0 +1,124 @@
+negative_word_analysis:
+  student_name: 서나
+  analysis_date: '2026-02-02'
+  text_length: 24
+  total_negative_words_found: 2
+  total_negative_word_frequency: 2
+  word_frequency:
+    불안하다: 1
+    짜증나다: 1
+  detailed_word_analysis:
+    불안하다:
+      frequency: 1
+      forms:
+      - form: 불안해서
+        start: 11
+        end: 15
+        context: 늘 너무 짜증나고 불안해서 잠이 안 왔다.
+      emotions:
+        우울: 1
+        분노: 0
+        불안: 9
+        슬픔: 0
+        외로움: 0
+        좌절: 0
+    짜증나다:
+      frequency: 1
+      forms:
+      - form: 짜증나고
+        start: 6
+        end: 10
+        context: 오늘 너무 짜증나고 불안해서 잠이 안
+      emotions:
+        우울: 2
+        분노: 6
+        불안: 2
+        슬픔: 0
+        외로움: 0
+        좌절: 0
+  emotion_distribution:
+    우울: 3
+    분노: 6
+    불안: 11
+    슬픔: 0
+    외로움: 0
+    좌절: 0
+  total_weighted_emotion_score: 20
+  emotion_percentages: &id001
+    우울: 15.0
+    분노: 30.0
+    불안: 55.0
+    슬픔: 0.0
+    외로움: 0.0
+    좌절: 0.0
+text_analysis_comment: '
+
+  ## 서나 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 24자
+
+  - **부정 어휘 수**: 2개 (중복 포함 2회)
+
+  - **부정 어휘 밀도**: 1000자당 83.3개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 불안 (55.0%)
+
+  - **불안**: 55.0% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **분노**: 30.0% - 강한 분노와 적대감이 표현됨
+
+  - **우울**: 15.0% - 지속적인 우울감과 무력감이 나타남
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 2
+  total_negative_word_frequency: 2
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 불안하다(1회)
+  - 짜증나다(1회)
+  negative_word_density: 83.3
+oov:
+  ckpt: models/koelectra_oov/checkpoint-114
+  threshold: 0.3
+  write_candidates: true
+  candidate_path: backend/data/oov_candidates.yaml
+  oov_spans: []
+  model_spans:
+  - start: 6
+    end: 8
+    text: 짜증
+    label: NEG_OOV
+    confidence: 0.995214006561942
+    source: koelectra
+  lexicon_spans:
+  - start: 6
+    end: 10
+    text: 짜증나고
+    source: lexicon
+  - start: 11
+    end: 15
+    text: 불안해서
+    source: lexicon
+  debug:
+    enabled: true
+    conf_threshold: 0.3
+    predictor_return: TokenPredictions
+    counts:
+      model_spans: 1
+      model_spans_nms: 1
+      lexicon_spans: 2
+      oov_spans: 0
+    candidate_path: backend/data/oov_candidates.yaml
+    candidate_mode: spans
+    candidate_oov_before_filter: 0
+    candidate_oov_after_filter: 0
+    candidate_records: 0
+    candidate_reason: no_oov_spans_after_filter
+oov_error: null

@@ -1,0 +1,169 @@
+negative_word_analysis:
+  student_name: 하0철
+  analysis_date: '2026-01-19'
+  text_length: 1640
+  total_negative_words_found: 6
+  total_negative_word_frequency: 11
+  word_frequency:
+    죽다: 4
+    아프다: 3
+    떨다: 1
+    소모하다: 1
+    심각하다: 1
+    힘들다: 1
+  detailed_word_analysis:
+    죽다:
+      frequency: 4
+      forms:
+      - form: 죽으니
+        start: 1179
+        end: 1182
+        context: ' 스무살인 친구가 죽으니 내 삶의 방향에 '
+      - form: 죽었
+        start: 131
+        end: 133
+        context: 슬픈 것은 이들이 죽었을 때 장례식에 갔
+      - form: 죽은
+        start: 296
+        end: 298
+        context: 게 가까운 사람이 죽은 첫 번째 경험이었
+      - form: 죽은
+        start: 1521
+        end: 1523
+        context: 그리워지곤 한다. 죽은 이가 그리운 마음
+      emotions:
+        우울: 3
+        분노: 1
+        불안: 0
+        슬픔: 4
+        외로움: 1
+        좌절: 1
+    아프다:
+      frequency: 3
+      forms:
+      - form: 아팠다
+        start: 1307
+        end: 1310
+        context: 구여서 더 마음이 아팠다. 원래 나도 수능
+      - form: 아프기
+        start: 1247
+        end: 1250
+        context: ' 번 더 보겠다고 아프기 전까지 공부만 했'
+      - form: 아픈
+        start: 932
+        end: 934
+        context: 아서 그만뒀다길래 아픈 것은 알고 있었지
+      emotions:
+        우울: 4
+        분노: 1
+        불안: 1
+        슬픔: 1
+        외로움: 3
+        좌절: 0
+    떨다:
+      frequency: 1
+      forms:
+      - form: 떨어
+        start: 1424
+        end: 1426
+        context: '다 힘들고 의욕이 떨어질 때 밤에 자기 '
+      emotions:
+        우울: 0
+        분노: 0
+        불안: 8
+        슬픔: 0
+        외로움: 2
+        좌절: 0
+    소모하다:
+      frequency: 1
+      forms:
+      - form: 소모할
+        start: 1363
+        end: 1366
+        context: 의미없이 1 년을 소모할 수도 있는데 굳이
+      emotions:
+        우울: 3
+        분노: 0
+        불안: 2
+        슬픔: 3
+        외로움: 1
+        좌절: 1
+    심각하다:
+      frequency: 1
+      forms:
+      - form: 심각한
+        start: 946
+        end: 949
+        context: 은 알고 있었지만 심각한 병일 것 이라고는
+      emotions:
+        우울: 2
+        분노: 0
+        불안: 2
+        슬픔: 1
+        외로움: 1
+        좌절: 4
+    힘들다:
+      frequency: 1
+      forms:
+      - form: 힘들고
+        start: 1416
+        end: 1419
+        context: ' 하다. 가끔가다 힘들고 의욕이 떨어질 때'
+      emotions:
+        우울: 3
+        분노: 0
+        불안: 3
+        슬픔: 1
+        외로움: 1
+        좌절: 2
+  emotion_distribution:
+    우울: 32
+    분노: 7
+    불안: 18
+    슬픔: 24
+    외로움: 18
+    좌절: 11
+  total_weighted_emotion_score: 110
+  emotion_percentages: &id001
+    우울: 29.1
+    분노: 6.4
+    불안: 16.4
+    슬픔: 21.8
+    외로움: 16.4
+    좌절: 10.0
+text_analysis_comment: '
+
+  ## 하0철 학생의 글 분석 코멘트
+
+
+  ### 전반적 특성
+
+  - **글 길이**: 1,640자
+
+  - **부정 어휘 수**: 6개 (중복 포함 11회)
+
+  - **부정 어휘 밀도**: 1000자당 6.7개
+
+
+  ### 감정 분포 특성
+
+  - **주요 감정**: 우울 (29.1%)
+
+  - **우울**: 29.1% - 지속적인 우울감과 무력감이 나타남
+
+  - **슬픔**: 21.8% - 깊은 상실감과 애도의 감정이 드러남
+
+  - **불안**: 16.4% - 미래에 대한 걱정과 불확실성이 표현됨
+
+  - **외로움**: 16.4% - 고립감과 소외감이 느껴짐
+
+  '
+llm_prompt_summary:
+  total_negative_words_found: 6
+  total_negative_word_frequency: 11
+  emotion_percentages: *id001
+  high_frequency_words:
+  - 죽다(4회)
+  - 아프다(3회)
+  - 떨다(1회)
+  negative_word_density: 6.7
