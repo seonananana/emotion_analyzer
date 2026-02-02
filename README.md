@@ -307,3 +307,24 @@ emotion_analyzer/
 
 - `start/end`: 원문 char index, `end` exclusive
 - `text[start:end]`가 실제 span 문자열과 일치해야 함(불일치면 폐기/로그 권장)
+
+  ## 📦 Model Download (Required)
+
+> ⚠️ **주의**  
+> 이 저장소에는 대용량 학습 모델이 포함되어 있지 않습니다.  
+> 실행 전 반드시 아래 절차에 따라 모델을 다운로드해야 합니다.
+
+### ✅ 사용 모델 정보
+- **Model**: KoELECTRA OOV
+- **Checkpoint**: `checkpoint-114`
+- **Distribution**: GitHub Releases
+- **Size**: 약 1.3GB
+
+---
+
+### 1️⃣ 모델 다운로드
+프로젝트 루트 디렉토리에서 아래 스크립트를 실행하세요.
+
+```bash
+./scripts/download_model_v114.sh
+
