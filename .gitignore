@@ -36,3 +36,12 @@ models/
 
 # Node (프론트가 있으면)
 node_modules/
+# ===== runtime / large artifacts (do not commit) =====
+models/
+checkpoint-114/
+*.tar.gz
+models_archive/
+output/
+backend/data/oov_candidates.*
+backend/data/*.bak.*
+backend/ml_oov/_cache/
