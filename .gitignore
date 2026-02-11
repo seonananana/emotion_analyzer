@@ -45,3 +45,8 @@ output/
 backend/data/oov_candidates.*
 backend/data/*.bak.*
 backend/ml_oov/_cache/
+
+# data
+backend/data/*.xlsx
+backend/data/*.jsonl
+backend/data/*.lock
