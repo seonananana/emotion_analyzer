@@ -1,0 +1,16 @@
+<!--frontend/templates/oov.html -->
+{% extends "base.html" %}
+{% block content %}
+<h2>OOV Monitor</h2>
+
+<div style="display:flex; gap:8px; margin:12px 0; align-items:center;">
+  <button id="btnRejected">Rejected</button>
+  <button id="btnConfirmed">Confirmed</button>
+  <label style="margin-left:8px;">limit</label>
+  <input id="limit" type="number" value="200" min="1" max="5000" style="width:90px;">
+</div>
+
+<pre id="out" style="white-space:pre-wrap; padding:12px; border:1px solid #ddd; border-radius:8px;"></pre>
+
+<script src="/static/oov.js"></script>
+{% endblock %}

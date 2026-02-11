@@ -69,11 +69,42 @@ class YAMLCandidateStore:
     def _load(self) -> Dict[str, CandidateRecord]:
         if not os.path.exists(self.path) or os.path.getsize(self.path) == 0:
             return {}
+
         with open(self.path, "r", encoding="utf-8") as f:
-            data = yaml.safe_load(f) or {}
+            data = yaml.safe_load(f)
+
+        # --- ✅ 호환 처리: None / list / {"records": [...]} 지원 ---
+        if data is None:
+            data = {}
+
+        # 루트가 리스트면 records 리스트로 간주
+        if isinstance(data, list):
+            data = {"records": data}
+
+        # {"records":[{...}, ...]} -> {key:{...}, ...}로 변환
+        if isinstance(data, dict) and isinstance(data.get("records"), list):
+            mapping: Dict[str, dict] = {}
+            for rec in data["records"]:
+                if not isinstance(rec, dict):
+                    continue
+                k = rec.get("key") or rec.get("text") or rec.get("word")
+                if not k:
+                    continue
+                mapping[str(k)] = rec
+            data = mapping
+
+        # 이제 data는 dict 형태여야 함
+        if not isinstance(data, dict):
+            return {}
+    # --- ✅ 호환 처리 끝 ---
+
         recs: Dict[str, CandidateRecord] = {}
         for k, v in data.items():
-            recs[k] = CandidateRecord(
+            # 혹시 값이 dict가 아니면 스킵
+            if not isinstance(v, dict):
+                continue
+
+            recs[str(k)] = CandidateRecord(
                 key=v.get("key", k),
                 text=v.get("text", k),
                 label=v.get("label", "CAND"),
@@ -84,6 +115,7 @@ class YAMLCandidateStore:
                 last_seen_at=v.get("last_seen_at", _now()),
             )
         return recs
+
 
     def _dump(self, recs: Dict[str, CandidateRecord]) -> None:
         os.makedirs(os.path.dirname(self.path), exist_ok=True)
@@ -158,8 +190,8 @@ class YAMLCandidateStore:
                 recs,
                 key=key,
                 text=s.text,
-                label=s.label,
-                confidence=float(s.confidence),
+                label=getattr(s, "label", "CAND_OOV"),
+                confidence=float(getattr(s, "confidence", 1.0)),
                 example=ex,
             )
         self._dump(recs)

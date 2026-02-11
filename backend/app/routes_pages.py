@@ -24,3 +24,7 @@ async def show_result_page_empty(request: Request):
     여기서는 템플릿 틀만 내려준다.
     """
     return templates.TemplateResponse("result.html", {"request": request})
+
+@router.get("/oov", response_class=HTMLResponse)
+async def show_oov_page(request: Request):
+    return templates.TemplateResponse("oov.html", {"request": request})
