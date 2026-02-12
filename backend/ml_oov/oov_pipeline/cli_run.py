@@ -1,3 +1,4 @@
+#  cli_run.py
 from __future__ import annotations
 
 import argparse
@@ -8,6 +9,17 @@ from .adapters import make_mloov_predictor
 from .pipeline import run_oov_pipeline
 from .lexicon_matcher import build_lexicon_matcher
 
+
+# ✅ FastAPI(UI Quick Test)에서 import해서 쓸 predictor factory
+def build_predictor(
+    ckpt: str = "models/koelectra_oov/checkpoint-114",
+    device: str = "cpu",
+):
+    """
+    UI(/ui/oov_run)에서도 CLI와 동일한 predictor를 쓰기 위한 factory.
+    routes_oov.py가 이 함수를 import해서 predictor(text) callable을 얻는다.
+    """
+    return make_mloov_predictor(ckpt_dir=ckpt, device=device)
 
 
 def main() -> None:
@@ -31,14 +43,14 @@ def main() -> None:
     if args.threshold is not None:
         overrides["conf_threshold"] = float(args.threshold)
 
-    LEXICON_YAML = "backend/data/부정_감성_사전_완전판.yaml"
+    LEXICON_YAML = args.lexicon
     lexicon_matcher = build_lexicon_matcher(LEXICON_YAML)
 
     res = run_oov_pipeline(
-    args.text,
-    predictor=predictor,
-    lexicon_matcher=lexicon_matcher,  
-    config_overrides=overrides or None,
+        args.text,
+        predictor=predictor,
+        lexicon_matcher=lexicon_matcher,
+        config_overrides=overrides or None,
     )
 
     print(

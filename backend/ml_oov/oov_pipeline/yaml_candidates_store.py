@@ -8,24 +8,29 @@ from typing import Dict, List, Optional
 
 from .types import CandidateRecord, CharSpan, LexiconSpan, TokenPredictions
 
+
 # candidates_store.py에 이미 있을 수도 있는 util을 최소로 복제
 def _now() -> str:
     return datetime.now().isoformat(timespec="seconds")
+
 
 def _context_window(text: str, start: int, end: int, win: int = 24) -> str:
     a = max(0, start - win)
     b = min(len(text), end + win)
     return text[a:b]
 
+
 def _overlaps(a, b) -> bool:
     # a,b: (start,end)
     return not (a[1] <= b[0] or b[1] <= a[0])
+
 
 def _safe_float(x, default=0.0) -> float:
     try:
         return float(x)
     except Exception:
         return float(default)
+
 
 def _is_bad_candidate_key(key: str) -> bool:
     key = (key or "").strip()
@@ -42,8 +47,28 @@ def _is_bad_candidate_key(key: str) -> bool:
 
     # 1글자: 기능어/잡음만 차단, 나머지는 허용(예: '빡'은 통과)
     deny_1 = {
-        "고","에","을","를","은","는","이","가","도","만","과","와","로","의",
-        "다","요","지","서","면","듯","걸","게",
+        "고",
+        "에",
+        "을",
+        "를",
+        "은",
+        "는",
+        "이",
+        "가",
+        "도",
+        "만",
+        "과",
+        "와",
+        "로",
+        "의",
+        "다",
+        "요",
+        "지",
+        "서",
+        "면",
+        "듯",
+        "걸",
+        "게",
         "타",  # 현타 -> 타 같은 케이스 차단
     }
     if len(key) == 1 and key in deny_1:
@@ -55,6 +80,7 @@ def _is_bad_candidate_key(key: str) -> bool:
         return True
 
     return False
+
 
 class YAMLCandidateStore:
     """
@@ -96,7 +122,7 @@ class YAMLCandidateStore:
         # 이제 data는 dict 형태여야 함
         if not isinstance(data, dict):
             return {}
-    # --- ✅ 호환 처리 끝 ---
+        # --- ✅ 호환 처리 끝 ---
 
         recs: Dict[str, CandidateRecord] = {}
         for k, v in data.items():
@@ -116,7 +142,6 @@ class YAMLCandidateStore:
             )
         return recs
 
-
     def _dump(self, recs: Dict[str, CandidateRecord]) -> None:
         os.makedirs(os.path.dirname(self.path), exist_ok=True)
         out = {k: asdict(v) for k, v in recs.items()}
@@ -134,10 +159,11 @@ class YAMLCandidateStore:
         example: str,
     ) -> None:
         key = (key or "").strip()
-       
+        example = (example or "").strip()  # ✅ examples 앞/뒤 공백 제거
+
         if _is_bad_candidate_key(key):
             return
-       
+
         now = _now()
         if key not in recs:
             recs[key] = CandidateRecord(
@@ -146,7 +172,8 @@ class YAMLCandidateStore:
                 label=label,
                 count=1,
                 avg_confidence=float(confidence),
-                examples=[example][: self.max_examples],
+                # ✅ 빈 예시는 저장하지 않음(선택이지만 안정적)
+                examples=([example] if example else [])[: self.max_examples],
                 first_seen_at=now,
                 last_seen_at=now,
             )
@@ -177,7 +204,7 @@ class YAMLCandidateStore:
     def update_from_spans(self, spans: List[CharSpan]) -> List[CandidateRecord]:
         recs = self._load()
         for s in spans:
-            key = (s.text or "").strip()
+            key = (getattr(s, "text", "") or "").strip()
 
             # ✅ 후보 키 정제/차단 (개행/1글자)
             if _is_bad_candidate_key(key):
@@ -185,11 +212,14 @@ class YAMLCandidateStore:
 
             if not key:
                 continue
-            ex = _context_window(s.text, 0, len(s.text), win=0)
+
+            # NOTE: spans에는 원문(text)이 없어서 현재는 span 텍스트만 예시로 저장
+            ex = _context_window(getattr(s, "text", "") or "", 0, len(getattr(s, "text", "") or ""), win=0)
+
             self._upsert(
                 recs,
                 key=key,
-                text=s.text,
+                text=getattr(s, "text", "") or key,
                 label=getattr(s, "label", "CAND_OOV"),
                 confidence=float(getattr(s, "confidence", 1.0)),
                 example=ex,
@@ -224,11 +254,57 @@ class YAMLCandidateStore:
         # ✅ 기본 stopwords (최소)
         base_sw = {
             # 조사/어미/기능어(상위 폭주하는 것들)
-            "고","에","을","를","은","는","이","가","도","만","과","와","로","으로","에게",
-            "한","하","했","되","다","요","니다","습니다","았","었","던","게","지","서","면",
-            "때","적","보다","같",
+            "고",
+            "에",
+            "을",
+            "를",
+            "은",
+            "는",
+            "이",
+            "가",
+            "도",
+            "만",
+            "과",
+            "와",
+            "로",
+            "으로",
+            "에게",
+            "한",
+            "하",
+            "했",
+            "되",
+            "다",
+            "요",
+            "니다",
+            "습니다",
+            "았",
+            "었",
+            "던",
+            "게",
+            "지",
+            "서",
+            "면",
+            "때",
+            "적",
+            "보다",
+            "같",
             # 구두점/기호
-            ",",".","!","?","…","~","·","(",")","[","]","{","}","\"","'","`",
+            ",",
+            ".",
+            "!",
+            "?",
+            "…",
+            "~",
+            "·",
+            "(",
+            ")",
+            "[",
+            "]",
+            "{",
+            "}",
+            '"',
+            "'",
+            "`",
         }
         sw = set(base_sw)
         if stopwords:
@@ -246,6 +322,10 @@ class YAMLCandidateStore:
 
             surface = (text[s:e] or "").strip()
             if not surface:
+                continue
+
+            # ✅ 길이 컷(선택): min_len/max_len
+            if len(surface) < int(min_len) or len(surface) > int(max_len):
                 continue
 
             # ✅ 후보 키 정제/차단 (개행/1글자)
@@ -269,7 +349,7 @@ class YAMLCandidateStore:
             if any(_overlaps((s, e), (ls.start, ls.end)) for ls in lex):
                 continue
 
-            conf = float(t.confidence)
+            conf = float(getattr(t, "confidence", 0.0))
             if conf < float(token_conf_threshold):
                 continue
 

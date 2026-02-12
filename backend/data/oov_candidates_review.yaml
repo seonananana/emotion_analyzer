@@ -1,0 +1,196 @@
+못하다:
+  status: approved
+  notes: negation pattern
+  updated_at: '2026-02-12T09:21:27'
+언니:
+  status: rejected
+  notes: topic/role noun
+  updated_at: '2026-02-12T09:31:55'
+언니랑:
+  status: rejected
+  notes: topic/role noun
+  updated_at: '2026-02-12T09:31:56'
+가족:
+  status: rejected
+  notes: topic noun
+  updated_at: '2026-02-12T09:31:58'
+가족들:
+  status: rejected
+  notes: topic noun
+  updated_at: '2026-02-12T09:32:00'
+엄마:
+  status: rejected
+  notes: topic/role noun
+  updated_at: '2026-02-12T09:32:01'
+엄마랑:
+  status: rejected
+  notes: topic/role noun
+  updated_at: '2026-02-12T09:32:03'
+엄마의:
+  status: rejected
+  notes: topic/role noun
+  updated_at: '2026-02-12T09:32:04'
+아빠:
+  status: rejected
+  notes: topic/role noun
+  updated_at: '2026-02-12T09:32:05'
+할아버지:
+  status: rejected
+  notes: topic/role noun
+  updated_at: '2026-02-12T09:32:07'
+못 하게:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:34:51'
+못 하게 되었다:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:34:53'
+못 하는:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:34:54'
+못 하며:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:34:55'
+못 하셨다:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:34:57'
+못 한다고:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:34:58'
+못 한다면:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:00'
+못 했고:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:01'
+못 했던:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:03'
+못 했습니다:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:04'
+못 했었다:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:06'
+못 했지:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:07'
+못하:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:09'
+못하겠다:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:10'
+못한다:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:12'
+못한다면:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:13'
+못했기:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:15'
+못했던:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:17'
+좋지 못 했던:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:19'
+표현하지 못 했던:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:21'
+하지 못 했지:
+  status: rejected
+  notes: duplicate of approved 못하다
+  updated_at: '2026-02-12T09:35:26'
+불안:
+  status: approved
+  notes: emotion/affect
+  updated_at: '2026-02-12T09:35:30'
+불안함:
+  status: approved
+  notes: emotion/affect
+  updated_at: '2026-02-12T09:35:33'
+안되다:
+  status: approved
+  notes: negation pattern
+  updated_at: '2026-02-12T09:35:37'
+동안:
+  status: rejected
+  notes: time expression
+  updated_at: '2026-02-12T09:35:45'
+그동안:
+  status: rejected
+  notes: time expression
+  updated_at: '2026-02-12T09:35:47'
+오랫동안:
+  status: rejected
+  notes: time expression
+  updated_at: '2026-02-12T09:35:50'
+안정:
+  status: rejected
+  notes: non-negative/general
+  updated_at: '2026-02-12T09:35:52'
+편안한:
+  status: rejected
+  notes: non-negative/general
+  updated_at: '2026-02-12T09:35:53'
+미안하다고:
+  status: approved
+  notes: guilt/apology emotion
+  updated_at: '2026-02-12T09:35:59'
+미안하다며:
+  status: approved
+  notes: guilt/apology emotion
+  updated_at: '2026-02-12T09:36:01'
+미안해지고:
+  status: approved
+  notes: guilt/apology emotion
+  updated_at: '2026-02-12T09:36:02'
+미치게:
+  status: approved
+  notes: UI에서 승인 테스트
+  updated_at: '2026-02-12T10:06:02'
+마음:
+  status: approved
+  notes: ''
+  updated_at: '2026-02-12T10:06:47'
+생각:
+  status: approved
+  notes: ''
+  updated_at: '2026-02-12T10:06:54'
+때문:
+  status: rejected
+  notes: ''
+  updated_at: '2026-02-12T10:06:57'
+것이:
+  status: pending
+  notes: ''
+  updated_at: '2026-02-12T10:06:59'
+극혐이라서:
+  status: approved
+  notes: 부정/혐오 표현(어미 포함 스팬)
+  updated_at: '2026-02-12T10:41:01'
+그리운:
+  status: approved
+  notes: ''
+  updated_at: '2026-02-12T11:36:54'

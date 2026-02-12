@@ -1,0 +1,12 @@
+{
+  "25249ffbdfb676ba72c85bc015f1982503fb3951": {
+    "status": "rejected",
+    "note": "테스트",
+    "decided_at": "2026-02-11T15:11:02"
+  },
+  "5bbfc1ed77e0968ae4a844501bf8d074feea6e47": {
+    "status": "approved",
+    "note": "approved:하소연",
+    "decided_at": "2026-02-11T15:32:15"
+  }
+}

@@ -1,0 +1,490 @@
+# backend/ml_oov/oov_pipeline/discover_rank_excel.py
+from __future__ import annotations
+
+import argparse
+import math
+import re
+from datetime import datetime
+from typing import Dict, List, Tuple, DefaultDict, Optional
+from collections import Counter, defaultdict
+
+import pandas as pd
+import yaml
+
+from backend.ml_oov.oov_pipeline.config import load_config
+from backend.ml_oov.oov_pipeline.yaml_candidates_store import YAMLCandidateStore
+from backend.ml_oov.oov_pipeline.types import CandidateRecord
+from backend.ml_oov.oov_pipeline.lexicon_adapter import analyzer_lexicon_matcher
+from backend.ml_oov.oov_pipeline.filters_ko import keep_candidate
+
+
+# -------------------------
+# sentence split (weak)
+# -------------------------
+_SENT_SPLIT = re.compile(r"[\n\r]+|(?<=[\.\!\?…])\s+|(?<=다)\.\s*|(?<=요)\.\s*")
+
+
+def split_sentences(text: str) -> List[str]:
+    text = (text or "").strip()
+    if not text:
+        return []
+    parts = [p.strip() for p in _SENT_SPLIT.split(text) if p and p.strip()]
+    return [p for p in parts if len(p) >= 2]
+
+
+# -------------------------
+# tokenization + normalize
+# -------------------------
+_TOKEN = re.compile(r"[가-힣]{2,12}")  # 2~12 (개빡쳤다 같은 케이스 대비)
+_EDGE_NOISE = re.compile(r"^[^\w가-힣]+|[^\w가-힣]+$", flags=re.UNICODE)
+
+_SAVE_JOSA_MIN = (
+    "까지", "부터", "에서", "으로", "에게", "한테",
+    "과", "와", "로", "에",
+    "을", "를", "은", "는", "이", "가", "도", "만",
+    "요",
+)
+
+
+def normalize_candidate_text(s: str) -> str:
+    """
+    후보 text에만 적용하는 저장용 정규화.
+    ✅ 원문 전체 변형 금지 (offset 유지)
+    """
+    s = (s or "").strip()
+    if not s:
+        return ""
+
+    # 1) 양끝 노이즈 제거: <<<, !!!, ㅠㅠ, .. 등
+    s = _EDGE_NOISE.sub("", s)
+
+    # 2) 내부 공백 제거
+    s = re.sub(r"\s+", "", s)
+
+    # 3) 아주 얕은 조사 제거(1회)
+    for suf in _SAVE_JOSA_MIN:
+        if s.endswith(suf) and len(s) > len(suf) + 1:
+            s = s[: -len(suf)]
+            break
+
+    return s
+
+
+# -------------------------
+# lexicon base words + variations (standalone)
+# -------------------------
+def _now() -> str:
+    return datetime.now().isoformat(timespec="seconds")
+
+
+def _load_base_words_from_lexicon_yaml(path: str) -> List[str]:
+    """
+    YAML 구조가 달라도 "word" 키 문자열을 전부 수집(안전).
+    """
+    with open(path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f) or {}
+
+    words: List[str] = []
+
+    def walk(x):
+        if isinstance(x, dict):
+            w = x.get("word")
+            if isinstance(w, str) and w.strip():
+                words.append(w.strip())
+            for v in x.values():
+                walk(v)
+        elif isinstance(x, list):
+            for it in x:
+                walk(it)
+
+    walk(data)
+    return list(dict.fromkeys(words))
+
+
+# ---- (옵션) "지치다 -> 지쳤다" 같은 축약 과거형 variations ----
+_HANGUL_BASE = 0xAC00
+_HANGUL_END = 0xD7A3
+
+_CHOS = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"]
+_JUNGS = ["ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅘ","ㅙ","ㅚ","ㅛ","ㅜ","ㅝ","ㅞ","ㅟ","ㅠ","ㅡ","ㅢ","ㅣ"]
+_JONGS = ["", "ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"]
+
+
+def _is_hangul(ch: str) -> bool:
+    o = ord(ch)
+    return _HANGUL_BASE <= o <= _HANGUL_END
+
+
+def _decomp(ch: str):
+    code = ord(ch) - _HANGUL_BASE
+    cho = code // (21 * 28)
+    jung = (code % (21 * 28)) // 28
+    jong = code % 28
+    return _CHOS[cho], _JUNGS[jung], _JONGS[jong]
+
+
+def _comp(cho: str, jung: str, jong: str = "") -> str:
+    try:
+        ci = _CHOS.index(cho)
+        ji = _JUNGS.index(jung)
+        gi = _JONGS.index(jong)
+    except ValueError:
+        return ""
+    return chr(_HANGUL_BASE + (ci * 21 * 28) + (ji * 28) + gi)
+
+
+_CONTRACT = {
+    ("ㅣ", "ㅓ"): "ㅕ",  # 지치+어 -> 지쳐
+    ("ㅡ", "ㅓ"): "ㅓ",  # 쓰+어 -> 써 (거칠게)
+    ("ㅗ", "ㅏ"): "ㅘ",  # 오+아 -> 와
+    ("ㅜ", "ㅓ"): "ㅝ",  # 주+어 -> 줘
+}
+
+
+def _contract_with_eo(stem: str, eo_vowel: str) -> str:
+    last = stem[-1]
+    if not _is_hangul(last):
+        return stem
+    cho, jung, jong = _decomp(last)
+    if jong:
+        return stem
+    new_v = _CONTRACT.get((jung, eo_vowel))
+    if not new_v:
+        return stem
+    new_last = _comp(cho, new_v, "")
+    return stem[:-1] + new_last if new_last else stem
+
+
+def _make_contracted_past(stem: str) -> Optional[str]:
+    """
+    stem(지치) -> 지쳐 -> 지쳤 (종성=ㅆ)
+    """
+    if not stem:
+        return None
+    last = stem[-1]
+    if not _is_hangul(last):
+        return None
+
+    cho, jung, jong = _decomp(last)
+    if jong:
+        return None
+
+    eo = "ㅏ" if jung in ("ㅏ","ㅑ","ㅗ","ㅛ","ㅘ","ㅙ","ㅚ") else "ㅓ"
+    contracted = _contract_with_eo(stem, eo)
+
+    last2 = contracted[-1]
+    if not _is_hangul(last2):
+        return None
+    c2, j2, g2 = _decomp(last2)
+    if g2:
+        return None
+
+    past_last = _comp(c2, j2, "ㅆ")
+    if not past_last:
+        return None
+    return contracted[:-1] + past_last
+
+
+def create_word_variations(base_words: List[str]) -> Dict[str, str]:
+    """
+    variation_form -> base_word
+    목표: 사전 단어의 활용형까지 known 처리해서 DROP
+    """
+    variations: Dict[str, str] = {}
+
+    for word in base_words:
+        if not word:
+            continue
+        variations[word] = word
+
+        if word.endswith("다") and len(word) >= 2:
+            stem = word[:-1]
+
+            forms = [
+                stem + "어", stem + "아",
+                stem + "었", stem + "았",
+                stem + "고", stem + "지",
+                stem + "는", stem + "은", stem + "을",
+                stem + "게", stem + "면",
+                stem + "어서", stem + "아서",
+                stem + "었어", stem + "았어",
+                stem + "어요", stem + "아요",
+                stem + "었습니다", stem + "았습니다",
+                stem + "다",
+            ]
+
+            # 하다 케이스
+            if stem.endswith("하") and len(stem) >= 1:
+                ha = stem[:-1]
+                forms += [
+                    ha + "해", ha + "해서",
+                    ha + "했", ha + "했다",
+                    ha + "했어", ha + "했어요",
+                    ha + "합니다", ha + "했습니다",
+                    ha + "한", ha + "할",
+                ]
+
+            # 축약 과거형 (지치다 -> 지쳤다)
+            past_stem = _make_contracted_past(stem)  # 지쳤
+            if past_stem:
+                forms += [
+                    past_stem + "다",
+                    past_stem + "어",
+                    past_stem + "어요",
+                    past_stem + "습니다",
+                    past_stem + "는데",
+                    past_stem + "지만",
+                ]
+
+            for f in forms:
+                if f and f not in variations:
+                    variations[f] = word
+
+    return variations
+
+
+def build_variations_from_lexicon(lexicon_path: str) -> Dict[str, str]:
+    base = _load_base_words_from_lexicon_yaml(lexicon_path)
+    return create_word_variations(base)
+
+
+# -------------------------
+# A2: anchor-window slicing
+# -------------------------
+def slice_by_anchor_window(sent: str, spans: list, window: int) -> str:
+    """
+    sent 내 앵커(span) 주변 ±window 글자만 이어 붙인 텍스트를 만든다.
+    window=0 이면 원문 그대로 사용.
+    """
+    if window <= 0 or not spans:
+        return sent
+
+    ranges: List[Tuple[int, int]] = []
+    L = len(sent)
+
+    for sp in spans:
+        s = getattr(sp, "start", None)
+        e = getattr(sp, "end", None)
+        if not isinstance(s, int) or not isinstance(e, int) or s >= e:
+            continue
+        left = max(0, s - window)
+        right = min(L, e + window)
+        ranges.append((left, right))
+
+    if not ranges:
+        return sent
+
+    # merge overlaps
+    ranges.sort()
+    merged: List[Tuple[int, int]] = []
+    cs, ce = ranges[0]
+    for s, e in ranges[1:]:
+        if s <= ce:
+            ce = max(ce, e)
+        else:
+            merged.append((cs, ce))
+            cs, ce = s, e
+    merged.append((cs, ce))
+
+    # join chunks with space separator to avoid accidental concat
+    return " ".join(sent[s:e] for s, e in merged if s < e)
+
+
+# -------------------------
+# token extraction for ranking
+# -------------------------
+def extract_oov_tokens(text: str, *, variations: Dict[str, str]) -> List[str]:
+    toks = _TOKEN.findall(text)
+    out: List[str] = []
+
+    for t in toks:
+        norm = normalize_candidate_text(t)
+        if not norm:
+            continue
+        if not keep_candidate(norm):
+            continue
+        if norm in variations:  # known (lexicon or its variations)
+            continue
+        out.append(norm)
+
+    return out
+
+
+def _merge_examples(old: List[str], new: List[str], max_n: int) -> List[str]:
+    out = list(old or [])
+    for ex in new:
+        if ex and ex not in out:
+            out.append(ex)
+        if len(out) >= max_n:
+            break
+    return out[:max_n]
+
+
+def save_rank_to_yaml(
+    *,
+    store: YAMLCandidateStore,
+    ranked: List[Tuple[str, int, int, float]],
+    examples_map: Dict[str, List[str]],
+    label: str,
+    max_examples: int,
+) -> None:
+    """
+    ranked: [(word, neg_freq, ctrl_freq, score), ...]
+    - count: neg_freq 누적으로 저장
+    - avg_confidence: score를 누적 가중 평균으로 저장
+    """
+    recs: Dict[str, CandidateRecord] = store._load()  # type: ignore[attr-defined]
+    now = _now()
+
+    for word, neg_f, ctrl_f, score in ranked:
+        key = word
+        exs = examples_map.get(word, [])[:max_examples]
+
+        if key not in recs:
+            recs[key] = CandidateRecord(
+                key=key,
+                text=word,
+                label=label,
+                count=int(neg_f),
+                avg_confidence=float(score),
+                examples=exs[:max_examples],
+                first_seen_at=now,
+                last_seen_at=now,
+            )
+            continue
+
+        r = recs[key]
+        new_count = int(r.count) + int(neg_f)
+
+        if neg_f > 0:
+            new_avg = (float(r.avg_confidence) * float(r.count) + float(score) * float(neg_f)) / float(new_count)
+        else:
+            new_avg = float(r.avg_confidence)
+
+        recs[key] = CandidateRecord(
+            key=r.key,
+            text=r.text,
+            label=r.label or label,
+            count=new_count,
+            avg_confidence=float(new_avg),
+            examples=_merge_examples(r.examples, exs, max_examples),
+            first_seen_at=r.first_seen_at,
+            last_seen_at=now,
+        )
+
+    store._dump(recs)  # type: ignore[attr-defined]
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(
+        description="A2: Discover OOV candidates by in-document NEG-like vs CTRL-like sentence ranking (no model)."
+    )
+    ap.add_argument("--excel", required=True, help="Excel file path")
+    ap.add_argument("--sheet", default=None, help="Sheet name (default: first)")
+    ap.add_argument("--text_col", required=True, help="Text column name (e.g., '부정 경험')")
+    ap.add_argument("--topk", type=int, default=200, help="Top-K candidates to save")
+    ap.add_argument("--min_freq", type=int, default=3, help="Minimum NEG-like frequency")
+    ap.add_argument("--alpha", type=float, default=1.0, help="Smoothing alpha for score")
+    ap.add_argument("--anchor_window", type=int, default=30, help="Use only ±window chars around anchor spans in NEG-like sentences (0=off)")
+    ap.add_argument("--out", default=None, help="Output YAML path (default: cfg.candidate_path)")
+    ap.add_argument("--label", default="STAT_RANK_A2", help="Label to store in YAML")
+    ap.add_argument("--lexicon", default=None, help="Lexicon YAML path (default: cfg.lexicon_path or backend/data/부정_감성_사전_완전판.yaml)")
+    args = ap.parse_args()
+
+    cfg = load_config()
+
+    lexicon_path = (
+        args.lexicon
+        or getattr(cfg, "lexicon_path", None)
+        or "backend/data/부정_감성_사전_완전판.yaml"
+    )
+    variations = build_variations_from_lexicon(lexicon_path)
+    if not variations:
+        raise RuntimeError(f"variations is empty. lexicon_path={lexicon_path}")
+
+    out_path = args.out or getattr(cfg, "candidate_path", "backend/data/oov_candidates.yaml")
+
+    # load excel
+    if args.sheet:
+        df = pd.read_excel(args.excel, sheet_name=args.sheet)
+        sheet_used = args.sheet
+    else:
+        df = pd.read_excel(args.excel)
+        sheet_used = "(first)"
+
+    if args.text_col not in df.columns:
+        raise ValueError(f"[ERR] no text column: {args.text_col}\ncols: {list(df.columns)}")
+
+    texts = df[args.text_col].dropna().astype(str).tolist()
+
+    neg_counter = Counter()
+    ctrl_counter = Counter()
+    examples_map: DefaultDict[str, List[str]] = defaultdict(list)
+
+    neg_sent_n = 0
+    ctrl_sent_n = 0
+
+    anchor_window = int(args.anchor_window)
+
+    for doc in texts:
+        sents = split_sentences(doc)
+
+        for sent in sents:
+            spans = analyzer_lexicon_matcher(sent) or []
+            is_neg_like = len(spans) > 0
+
+            if is_neg_like:
+                neg_sent_n += 1
+                # ✅ NEG-like에서는 앵커 주변만 보게 해서 "부정 근처" 토큰만 추출
+                view = slice_by_anchor_window(sent, spans, anchor_window)
+                toks = extract_oov_tokens(view, variations=variations)
+                if toks:
+                    neg_counter.update(toks)
+                    for w in set(toks):
+                        if len(examples_map[w]) < cfg.max_examples_per_key:
+                            # 예시는 원문 문장 그대로 저장(해석 쉬움)
+                            examples_map[w].append(sent)
+            else:
+                ctrl_sent_n += 1
+                # CTRL-like는 문장 전체 사용
+                toks = extract_oov_tokens(sent, variations=variations)
+                if toks:
+                    ctrl_counter.update(toks)
+
+    # scoring
+    alpha = float(args.alpha)
+    ranked: List[Tuple[str, int, int, float]] = []
+    for w, nf in neg_counter.items():
+        if nf < int(args.min_freq):
+            continue
+        cf = int(ctrl_counter.get(w, 0))
+        score = math.log((nf + alpha) / (cf + alpha))
+        ranked.append((w, int(nf), int(cf), float(score)))
+
+    ranked.sort(key=lambda x: (x[3], x[1]), reverse=True)
+    top = ranked[: int(args.topk)]
+
+    store = YAMLCandidateStore(out_path, max_examples=cfg.max_examples_per_key)
+    save_rank_to_yaml(
+        store=store,
+        ranked=top,
+        examples_map=examples_map,
+        label=str(args.label),
+        max_examples=cfg.max_examples_per_key,
+    )
+
+    print(f"[OK] excel={args.excel} (sheet={sheet_used})")
+    print(f"[OK] text_col={args.text_col}")
+    print(f"[OK] lexicon={lexicon_path} variations={len(variations)}")
+    print(f"[OK] neg_like_sentences={neg_sent_n}, ctrl_like_sentences={ctrl_sent_n}")
+    print(f"[OK] anchor_window={anchor_window}")
+    print(f"[OK] candidates_considered={len(ranked)}, saved_topk={len(top)}")
+    print(f"[OK] out_yaml={out_path}")
+    if top:
+        print("[TOP 20 preview] word, neg_freq, ctrl_freq, score")
+        for row in top[:20]:
+            print(row)
+
+
+if __name__ == "__main__":
+    main()

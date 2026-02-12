@@ -327,4 +327,74 @@ emotion_analyzer/
 
 ```bash
 ./scripts/download_model_v114.sh
+```
+---
+ ## 7.OOV 자동 확장 시스템
 
+ ### 7.1 OOV 후보 자동 누적
+
+ UI에서 일기를 입력하면:
+
+-   기존 사전에 없는 표현
+-   모델이 NEG_OOV로 판단한 토큰
+-   heuristic 기반 후보
+
+이 자동으로 backend/data/oov_candidates.yaml 에 누적된다.
+
+ ### 7.2 승인/거절
+
+ 승인 상태는 backend/data/oov_candidates_review.yaml 에 저장된다.
+
+
+
+### 7.3 사전 자동 반영
+
+PYTHONPATH="\$(pwd)" python3 -m
+backend.ml_oov.oov_pipeline.cli_merge_approved_to_additions --min_count
+3 --min_examples 1
+
+### [내부 보호 장치]
+
+-   label prefix 검사
+-   등장 횟수 최소 기준
+-   예시 개수 기준
+-   길이 제한
+-   blocklist 필터
+-   provenance 기록
+
+
+------------------------------------------------------------------------
+
+## 8. OOV ML 모델 구조
+
+backend/ml_oov/ ├─ labels.py ├─ predictor.py ├─ dataset_builder.py ├─
+train_tokenclf.py ├─ eval_oov.py
+
+Gold 데이터 형식:
+
+{"id":"doc_0001","text":"원문","oov_spans":\[{"start":10,"end":15,"label":"NEG_OOV"}\]}
+
+------------------------------------------------------------------------
+
+
+## 9. 현재 시스템 상태
+
+✔ UI 입력 시 OOV 자동 누적\
+✔ 승인/거절 기능\
+✔ 품질 게이트 적용\
+✔ blocklist 보호\
+✔ provenance 기록\
+✔ additions 사전 자동 반영\
+✔ 기존 사전과 병합 분석
+
+------------------------------------------------------------------------
+
+## 10. 최종 결론
+
+이 시스템은 고정 사전 기반 분석기가 아니라,
+운영 중 지속적으로 사전을 확장하는 학습형 감정 분석 플랫폼이다.
+
+학생이 새로운 부정 표현을 쓰면: - 자동으로 후보에 저장되고 - 검토 후
+사전에 반영되며 - 이후 모든 분석에 자동 적용된다.
+
+Emotion Analyzer는 정적 분석기가 아니라 진화하는 감정 분석 시스템이다.

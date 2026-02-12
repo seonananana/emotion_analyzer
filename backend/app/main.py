@@ -10,7 +10,6 @@ from backend.app.routes_analysis import router as analysis_router
 from backend.app.routes_pages import router as pages_router
 from backend.app.routes_health import router as health_router
 from backend.app.routes_oov import router as oov_router
-
 logging.basicConfig(
     level=getattr(logging, LOG_LEVEL.upper(), logging.INFO),
     format="%(asctime)s [%(levelname)s] %(name)s - %(message)s",

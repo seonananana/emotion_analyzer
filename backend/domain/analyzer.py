@@ -5,7 +5,7 @@ from typing import Dict, List, Tuple, Any
 from backend.infra.paths import NEGATIVE_LEXICON_PATH
 from collections import defaultdict
 from datetime import datetime
-from backend.domain.analyzer import NegativeEmotionAnalyzer
+
 
 class NegativeEmotionAnalyzer:
     def __init__(self):

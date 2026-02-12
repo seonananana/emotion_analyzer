@@ -13,6 +13,7 @@ from .postprocess import apply_conf_threshold, nms_char_spans, remove_known_over
 from .span_recover import recover_spans
 from .types import LexiconMatcher, LexiconSpan, PipelineResult, PredictTokens, CharSpan
 from .filters_ko import keep_candidate
+from .heuristic_extract import extract_heuristic_oov_candidates
 
 
 def _wrap_token_dicts_as_objects(tokens: List[Dict[str, Any]]) -> List[Any]:
@@ -42,9 +43,36 @@ def _span_to_dict(s: Any) -> Dict[str, Any]:
 
 
 # ---------------------------
-# NEW: context-based OOV mining
+# context-based OOV mining (refined)
 # ---------------------------
-_HANGUL_TOKEN = re.compile(r"[가-힣]{2,6}")
+_HANGUL_TOKEN = re.compile(r"[가-힣]{2,8}")  # 조금 여유
+
+_CONTEXT_STOP = {
+    "오늘", "어제", "내일",
+    "너무", "진짜", "정말", "완전", "그냥", "약간",
+    "했다", "한다", "됨", "된다", "하는", "있다", "없다",
+    "왔다", "갔다", "된다", "같다",
+}
+
+_JOSA_SUFFIX = (
+    "까지", "부터", "에서", "으로", "에게", "한테",
+    "과", "와", "로", "에",
+    "을", "를", "은", "는", "이", "가", "도", "만",
+)
+
+
+def _overlaps(a_start: int, a_end: int, b_start: int, b_end: int) -> bool:
+    return not (a_end <= b_start or b_end <= a_start)
+
+
+def _strip_josa(tok: str) -> str:
+    tok = (tok or "").strip()
+    if len(tok) < 3:
+        return tok
+    for suf in _JOSA_SUFFIX:
+        if tok.endswith(suf) and len(tok) > len(suf) + 1:
+            return tok[: -len(suf)]
+    return tok
 
 
 def _mine_oov_from_context(
@@ -56,12 +84,13 @@ def _mine_oov_from_context(
 ) -> List[CharSpan]:
     """
     anchor(사전/모델 span) 주변 ±window 글자 범위에서
-    '사전에 없는 한글 토큰(2~6자)'을 OOV 후보 span으로 생성한다.
+    '사전에 없는 한글 토큰'을 OOV 후보(CharSpan)로 생성한다.
 
-    - 목적: 모델이 못 잡는 신조어(현타/멘붕/개빡 등)를
-            '부정 단서(짜증/불안 등)' 주변에서 후보로 끌어올리기.
+    개선점:
+    - lexicon span 위치와 겹치면 제외
+    - 기본 stopwords 제외
+    - 조사 제거 normalize (현타가 -> 현타)
     """
-    # 1) anchor spans/texts 수집 (LexiconSpan 객체 기반)
     anchor_spans: List[Tuple[int, int]] = []
     anchor_texts: Set[str] = set()
 
@@ -74,15 +103,14 @@ def _mine_oov_from_context(
         if isinstance(t, str) and t:
             anchor_texts.add(t)
 
+    # ✅ 앵커가 없으면 context mining 불가
     if not anchor_spans:
         return []
 
-    # 2) 사전 텍스트 set (빠른 제외용)
     lex_texts: Set[str] = set(getattr(x, "text", "") for x in (lexicon_spans or []))
 
-    # 3) 주변 윈도우에서 토큰 추출 → LexiconSpan으로 반환
-    out: List[LexiconSpan] = []
-    seen_pos: Set[Tuple[int, int]] = set()
+    out: List[CharSpan] = []
+    seen_key: Set[Tuple[int, int, str]] = set()
 
     for (s, e) in anchor_spans:
         left = max(0, s - window)
@@ -92,30 +120,52 @@ def _mine_oov_from_context(
         for m in _HANGUL_TOKEN.finditer(chunk):
             ts = left + m.start()
             te = left + m.end()
-            tok = text[ts:te]
+            raw = text[ts:te]
 
-            # anchor 자체/사전 단어는 제외
-            if tok in anchor_texts:
-                continue
-            if tok in lex_texts:
+            if not raw or raw.strip() == "":
                 continue
 
-            key = (ts, te)
-            if key in seen_pos:
+            # ✅ lexicon span과 위치 겹치면 제외
+            if any(_overlaps(ts, te, ls.start, ls.end) for ls in (lexicon_spans or [])):
                 continue
-            seen_pos.add(key)
+
+            # anchor 자체 텍스트면 제외
+            if raw in anchor_texts:
+                continue
+
+            # 사전에 있는 단어면 제외 (텍스트 기준 2차)
+            if raw in lex_texts:
+                continue
+
+            norm = _strip_josa(raw)
+            if not norm:
+                continue
+
+            if norm in _CONTEXT_STOP:
+                continue
+
+            if len(norm) < 2:
+                continue
+
+            if norm != raw:
+                te = ts + len(norm)
+
+            key = (ts, te, norm)
+            if key in seen_key:
+                continue
+            seen_key.add(key)
 
             out.append(
                 CharSpan(
                     start=ts,
                     end=te,
-                    text=tok,
-                    label="CAND_OOV",     # 임시 라벨
-                    confidence=1.0,       # rule 기반이니 1.0로 두자
+                    text=norm,
+                    label="CAND_OOV",
+                    confidence=1.0,
                     source="context",
                 )
             )
-            
+
     return out
 
 
@@ -178,23 +228,42 @@ def run_oov_pipeline(
     oov_spans = remove_known_overlaps(model_spans_nms, lexicon_spans)
     oov_spans = apply_conf_threshold(oov_spans, cfg.conf_threshold)
 
-    # ✅ NEW: context 기반 후보 생성 (신조어/구어체 OOV를 끌어올림)
-    # - anchor = (사전 span + 모델 span NMS)
-    # - anchor 주변에서 사전에 없는 한글 토큰을 OOV 후보로 생성
-    context_window = getattr(cfg, "context_window", 12)  # config에 없으면 12
+    # 5) context 기반 후보 생성 (앵커가 있어야 발동)
+    context_window = getattr(cfg, "context_window", 12)
     context_cands = _mine_oov_from_context(
         text,
         anchors=(lexicon_spans or []) + (model_spans_nms or []),
         lexicon_spans=lexicon_spans or [],
         window=int(context_window),
     )
+
     if context_cands:
-        # 중복 방지(동일 위치)
         existing_pos = {(getattr(s, "start", None), getattr(s, "end", None)) for s in oov_spans}
         for s in context_cands:
             pos = (s.start, s.end)
             if pos not in existing_pos:
                 oov_spans.append(s)
+
+    # ✅ CHANGED: heuristic은 "oov_spans가 비었을 때만"이 아니라,
+    #            항상 돌리고(혹은 context/model이 약할 때), 중복/사전겹침 제거 후 합친다.
+    heuristic_cands: List[CharSpan] = extract_heuristic_oov_candidates(
+        text,
+        lexicon_spans=lexicon_spans or [],
+    )
+
+    # heuristic 후보를 oov_spans에 합치되:
+    # - lexicon span 위치 겹치면 제거(이중 안전)
+    # - 이미 같은 위치 span 있으면 제거
+    if heuristic_cands:
+        existing_pos = {(getattr(s, "start", None), getattr(s, "end", None)) for s in oov_spans}
+        for s in heuristic_cands:
+            if any(_overlaps(s.start, s.end, ls.start, ls.end) for ls in (lexicon_spans or [])):
+                continue
+            pos = (s.start, s.end)
+            if pos in existing_pos:
+                continue
+            oov_spans.append(s)
+            existing_pos.add(pos)
 
     debug: Dict[str, Any] = {
         "enabled": True,
@@ -208,9 +277,10 @@ def run_oov_pipeline(
         },
         "context_window": int(context_window),
         "context_candidates_added": len(context_cands),
+        "heuristic_candidates_added": len(heuristic_cands),
     }
 
-    # 5) 후보 저장 (A안 구조)
+    # 6) 후보 저장 (A안 구조)
     if cfg.write_candidates:
         store = YAMLCandidateStore(
             cfg.candidate_path,
@@ -219,17 +289,25 @@ def run_oov_pipeline(
         debug["candidate_path"] = cfg.candidate_path
         debug["candidate_mode"] = "spans"
 
-        filtered_oov = [s for s in oov_spans if keep_candidate(getattr(s, "text", ""))]
+        # ✅ 저장 직전 최종 필터:
+        # - keep_candidate
+        # - lexicon 위치 겹침 제거(아주 마지막 안전망)
+        filtered_oov: List[CharSpan] = []
+        for s in oov_spans:
+            txt = getattr(s, "text", "")
+            if not keep_candidate(txt):
+                continue
+            if any(_overlaps(s.start, s.end, ls.start, ls.end) for ls in (lexicon_spans or [])):
+                continue
+            filtered_oov.append(s)
 
         debug["candidate_oov_before_filter"] = len(oov_spans)
         debug["candidate_oov_after_filter"] = len(filtered_oov)
 
         if filtered_oov:
-            # ✅ 확정 OOV만 YAML에 저장
             updated = store.update_from_spans(filtered_oov)
             debug["candidate_records"] = len(updated)
         else:
-            # ❌ 확정 OOV 없음 → rejected 후보로 누적
             debug["candidate_records"] = 0
             debug["candidate_reason"] = "no_oov_spans_after_filter"
 
