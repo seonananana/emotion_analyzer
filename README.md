@@ -205,7 +205,7 @@ uvicorn backend.app.main:app --reload --port 8000(or8001)
 
 ## 6. OOV 태깅 모델 모듈 (ml_oov)
 
-# ml_oov 디렉토리 트리 + 파일 역할(복붙용)
+### ml_oov 디렉토리 트리 + 파일 역할
 
 > 목적: A(모델 담당)가 `ml_oov`만 완성하면 B(파이프라인 담당)가 `predict_tokens()`를 바로 가져다 붙일 수 있게 하는 최소 구조.
 
